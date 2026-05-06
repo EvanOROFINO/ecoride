@@ -1,0 +1,9 @@
+# Configuration Nixpacks (utilisé par Railway pour build PHP + extensions)
+[phases.setup]
+nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.mongodb', 'php82Extensions.pdo_mysql']
+
+[phases.install]
+cmds = ['composer install --no-dev --optimize-autoloader']
+
+[start]
+cmd = 'vendor/bin/heroku-php-apache2 public/'
