@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>manuel utilisation — EcoRide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+@page { size: A4; margin: 1.5cm; }
+* { box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #212121;
+  max-width: 100%;
+  margin: 0;
+  padding: 1rem 2rem;
+  font-size: 11pt;
+}
+h1 { color: #2E7D32; border-bottom: 3px solid #2E7D32; padding-bottom: .4rem; font-size: 22pt; }
+h2 { color: #2E7D32; margin-top: 1.8rem; font-size: 16pt; border-bottom: 1px solid #C8E6C9; padding-bottom: .25rem; }
+h3 { color: #424242; margin-top: 1.2rem; font-size: 13pt; }
+h4 { color: #616161; }
+p, li { line-height: 1.65; }
+code { background: #F5F5F5; padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Monaco', monospace; font-size: 10pt; color: #C62828; }
+pre { background: #F5F5F5; padding: 1rem; border-radius: 6px; border-left: 4px solid #2E7D32; overflow-x: auto; font-size: 9pt; }
+pre code { background: transparent; padding: 0; color: #212121; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 10pt; }
+th { background: #2E7D32; color: white; padding: .5rem .75rem; text-align: left; }
+td { padding: .4rem .75rem; border-bottom: 1px solid #E0E0E0; }
+tr:nth-child(even) td { background: #FAFAFA; }
+blockquote { border-left: 4px solid #66BB6A; background: #E8F5E9; padding: .75rem 1rem; margin: 1rem 0; font-style: italic; }
+a { color: #2E7D32; text-decoration: none; }
+strong { color: #1B5E20; }
+hr { border: none; border-top: 2px solid #E0E0E0; margin: 2rem 0; }
+ul, ol { padding-left: 1.5rem; }
+.toc { background: #F5F7F4; padding: 1rem 1.5rem; border-radius: 6px; margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+<h1>Manuel d&#39;utilisation — EcoRide</h1>
+<blockquote>
+<p>Plateforme de covoiturage écologique — Version 1.0</p>
+</blockquote>
+<hr>
+<h2>1. Présentation</h2>
+<p>EcoRide est une plateforme de covoiturage qui privilégie les trajets écologiques (voitures électriques) et facilite le partage entre conducteurs et passagers. Le site est accessible à trois types d&#39;utilisateurs : <strong>visiteurs</strong>, <strong>utilisateurs</strong> (chauffeurs et/ou passagers), <strong>employés</strong> et <strong>administrateurs</strong>.</p>
+<h2>2. Accès à l&#39;application</h2>
+<ul>
+<li><strong>En local</strong> : <a href="http://localhost:8000">http://localhost:8000</a> (serveur PHP)</li>
+<li><strong>En production</strong> : <a href="https://ecoride.up.railway.app">https://ecoride.up.railway.app</a> <em>(à compléter après déploiement)</em></li>
+</ul>
+<h2>3. Comptes de démonstration</h2>
+<p>Mot de passe pour tous les comptes : <strong><code>Password123!</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Email</th>
+<th>Pseudo</th>
+<th>Crédits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Administrateur</td>
+<td><code>admin@ecoride.fr</code></td>
+<td>admin</td>
+<td>9999</td>
+</tr>
+<tr>
+<td>Employé</td>
+<td><code>employe@ecoride.fr</code></td>
+<td>employe1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Chauffeur + passager</td>
+<td><code>sophie@example.com</code></td>
+<td>sophie_b</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Chauffeur</td>
+<td><code>lucas@example.com</code></td>
+<td>lucas_m</td>
+<td>75</td>
+</tr>
+<tr>
+<td>Chauffeur + passager</td>
+<td><code>julie@example.com</code></td>
+<td>julie_r</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>tom@example.com</code></td>
+<td>tom_d</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>emma@example.com</code></td>
+<td>emma_l</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>paul@example.com</code></td>
+<td>paul_g</td>
+<td>25</td>
+</tr>
+</tbody></table>
+<h2>4. Parcours visiteur</h2>
+<h3>4.1 Page d&#39;accueil (US 1)</h3>
+<ol>
+<li>Ouvrir <a href="http://localhost:8000">http://localhost:8000</a></li>
+<li>La page présente l&#39;entreprise, une barre de recherche et un footer (mail + mentions légales)</li>
+</ol>
+<h3>4.2 Recherche d&#39;un covoiturage (US 3-4)</h3>
+<ol>
+<li>Sur la page d&#39;accueil, saisir une ville de départ (<code>Paris</code>), d&#39;arrivée (<code>Lyon</code>) et une date</li>
+<li>Cliquer sur <strong>Rechercher</strong></li>
+<li>La liste des trajets correspondants s&#39;affiche</li>
+<li>Utiliser les filtres dans la sidebar pour affiner :<ul>
+<li><strong>Écologique uniquement</strong> : ne montre que les voitures électriques</li>
+<li><strong>Prix maximum</strong> : en crédits par personne</li>
+<li><strong>Durée maximum</strong> : en minutes</li>
+<li><strong>Note minimale</strong> : filtre par note moyenne du chauffeur</li>
+</ul>
+</li>
+<li>Si aucun résultat, le site propose la <strong>prochaine date disponible</strong></li>
+</ol>
+<h3>4.3 Détail d&#39;un covoiturage (US 5)</h3>
+<ol>
+<li>Cliquer sur <strong>Détails</strong> d&#39;un trajet</li>
+<li>La page affiche : véhicule, marque, énergie, préférences chauffeur, avis validés</li>
+<li>Bouton <strong>Participer</strong> si connecté avec assez de crédits</li>
+</ol>
+<h2>5. Parcours utilisateur (US 6, 7, 8, 9, 10, 11)</h2>
+<h3>5.1 Création de compte (US 7)</h3>
+<ol>
+<li>Cliquer sur <strong>Connexion</strong> &gt; <strong>Créer un compte</strong></li>
+<li>Renseigner un pseudo (3-50 car.), un email valide, un mot de passe sécurisé<ul>
+<li><strong>Min 8 caractères</strong></li>
+<li><strong>1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial</strong></li>
+</ul>
+</li>
+<li>À la création, le compte reçoit <strong>20 crédits offerts</strong></li>
+</ol>
+<h3>5.2 Espace utilisateur (US 8)</h3>
+<p>Une fois connecté, accéder à <strong>Mon espace</strong> :</p>
+<ul>
+<li><strong>Choisir son rôle</strong> : chauffeur, passager, ou les deux (case à cocher)</li>
+<li><strong>Mes véhicules</strong> (chauffeur uniquement) : ajouter une voiture (marque, modèle, immatriculation, énergie, places)</li>
+<li><strong>Mes préférences</strong> : fumeur, animaux, et préférences personnalisées (clé/valeur libre stockées en MongoDB)</li>
+</ul>
+<h3>5.3 Proposer un voyage (US 9)</h3>
+<ol>
+<li><strong>Mon espace &gt; Proposer un voyage</strong></li>
+<li>Renseigner : départ, arrivée, dates, heures, véhicule, places, prix</li>
+<li>Le prix doit être ≥ 3 crédits (2 prélevés par la plateforme)</li>
+</ol>
+<h3>5.4 Participer à un voyage (US 6)</h3>
+<ol>
+<li>Sur la page détail d&#39;un trajet, cliquer <strong>Participer</strong></li>
+<li><strong>Double confirmation</strong> demandée</li>
+<li>Les crédits sont prélevés immédiatement, la place décrémentée</li>
+</ol>
+<h3>5.5 Historique (US 10)</h3>
+<ul>
+<li><strong>Mon espace &gt; Mon historique</strong></li>
+<li>Visualiser tous ses trajets (chauffeur et passager)</li>
+<li><strong>Annuler</strong> un trajet (chauffeur : remboursement passagers + mail) ou (passager : remboursement de ses crédits)</li>
+</ul>
+<h3>5.6 Démarrer / arrêter un trajet (US 11)</h3>
+<ul>
+<li><strong>Chauffeur</strong> : depuis l&#39;historique, bouton <strong>Démarrer</strong> puis <strong>Arrivée à destination</strong></li>
+<li><strong>Passager</strong> : après l&#39;arrivée, bouton <strong>Valider le trajet</strong><ul>
+<li>Indiquer si tout s&#39;est bien passé (oui/non)</li>
+<li>Si oui : noter (1-5 étoiles) + commentaire — l&#39;avis passe en modération employé</li>
+<li>Si non : commentaire requis — un employé contactera le chauffeur</li>
+</ul>
+</li>
+</ul>
+<h2>6. Parcours employé (US 12)</h2>
+<p>Connexion avec <code>employe@ecoride.fr</code>. Accéder à <strong>Espace employé</strong> :</p>
+<h3>6.1 Modération des avis</h3>
+<ul>
+<li><strong>Espace employé &gt; Avis à modérer</strong></li>
+<li>Liste des avis en attente</li>
+<li><strong>Valider</strong> ou <strong>Refuser</strong> chaque avis (le chauffeur ne voit que les avis validés)</li>
+</ul>
+<h3>6.2 Gestion des incidents</h3>
+<ul>
+<li><strong>Espace employé &gt; Incidents</strong></li>
+<li>Liste des trajets signalés problématiques</li>
+<li>Coordonnées chauffeur et passager affichées (mail cliquable)</li>
+<li>Description du problème pour traitement</li>
+</ul>
+<h2>7. Parcours administrateur (US 13)</h2>
+<p>Connexion avec <code>admin@ecoride.fr</code>. Accéder à <strong>Admin</strong> :</p>
+<h3>7.1 Tableau de bord</h3>
+<ul>
+<li>3 KPI : crédits gagnés, utilisateurs, covoiturages</li>
+<li><strong>Graphique</strong> : nombre de covoiturages par jour (30 derniers jours)</li>
+<li><strong>Graphique</strong> : crédits gagnés par jour (30 derniers jours)</li>
+</ul>
+<h3>7.2 Gestion des comptes</h3>
+<ul>
+<li><strong>Admin &gt; Gérer les comptes</strong></li>
+<li>Liste de tous les utilisateurs avec rôles</li>
+<li><strong>Suspendre</strong> ou <strong>Réactiver</strong> un compte (utilisateur ou employé)</li>
+<li><strong>Créer un compte employé</strong> depuis le formulaire dédié</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong> : la création du compte administrateur se fait directement en BDD (script SQL <code>02_seed.sql</code>), pas depuis l&#39;application.</p>
+</blockquote>
+<h2>8. Sécurité</h2>
+<ul>
+<li>Mots de passe hashés en <strong>bcrypt</strong> (jamais stockés en clair)</li>
+<li><strong>Protection CSRF</strong> sur tous les formulaires POST</li>
+<li><strong>Sessions HTTPOnly</strong> + <code>SameSite=Lax</code> + régénération à la connexion</li>
+<li><strong>Requêtes préparées PDO</strong> (protection injection SQL)</li>
+<li><strong>Échappement HTML</strong> (htmlspecialchars) sur tous les affichages utilisateur (anti-XSS)</li>
+<li>En-têtes de sécurité : <code>X-Content-Type-Options</code>, <code>X-Frame-Options</code>, <code>Referrer-Policy</code></li>
+</ul>
+<h2>9. Support</h2>
+<ul>
+<li>Email : <code>contact@ecoride.fr</code></li>
+<li>Page contact : <code>/contact</code></li>
+<li>Mentions légales : <code>/mentions-legales</code></li>
+</ul>
+
+</body>
+</html>

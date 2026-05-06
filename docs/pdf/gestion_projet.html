@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>gestion projet — EcoRide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+@page { size: A4; margin: 1.5cm; }
+* { box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #212121;
+  max-width: 100%;
+  margin: 0;
+  padding: 1rem 2rem;
+  font-size: 11pt;
+}
+h1 { color: #2E7D32; border-bottom: 3px solid #2E7D32; padding-bottom: .4rem; font-size: 22pt; }
+h2 { color: #2E7D32; margin-top: 1.8rem; font-size: 16pt; border-bottom: 1px solid #C8E6C9; padding-bottom: .25rem; }
+h3 { color: #424242; margin-top: 1.2rem; font-size: 13pt; }
+h4 { color: #616161; }
+p, li { line-height: 1.65; }
+code { background: #F5F5F5; padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Monaco', monospace; font-size: 10pt; color: #C62828; }
+pre { background: #F5F5F5; padding: 1rem; border-radius: 6px; border-left: 4px solid #2E7D32; overflow-x: auto; font-size: 9pt; }
+pre code { background: transparent; padding: 0; color: #212121; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 10pt; }
+th { background: #2E7D32; color: white; padding: .5rem .75rem; text-align: left; }
+td { padding: .4rem .75rem; border-bottom: 1px solid #E0E0E0; }
+tr:nth-child(even) td { background: #FAFAFA; }
+blockquote { border-left: 4px solid #66BB6A; background: #E8F5E9; padding: .75rem 1rem; margin: 1rem 0; font-style: italic; }
+a { color: #2E7D32; text-decoration: none; }
+strong { color: #1B5E20; }
+hr { border: none; border-top: 2px solid #E0E0E0; margin: 2rem 0; }
+ul, ol { padding-left: 1.5rem; }
+.toc { background: #F5F7F4; padding: 1rem 1.5rem; border-radius: 6px; margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+<h1>Documentation gestion de projet — EcoRide</h1>
+<h2>1. Méthodologie</h2>
+<h3>1.1 Approche choisie : <strong>Agile / Kanban</strong></h3>
+<p>Le projet EcoRide a été conduit selon une approche <strong>Kanban</strong> combinée à des principes Agile :</p>
+<ul>
+<li>Découpage du besoin en <strong>User Stories</strong> (US) numérotées</li>
+<li>Priorisation : du visiteur (US 1-7) vers les rôles privilégiés (US 8-13)</li>
+<li><strong>Itérations courtes</strong> : une US codée et testée avant de passer à la suivante</li>
+<li>Branche Git par fonctionnalité, merge dans <code>develop</code> après tests, puis dans <code>main</code> pour livraison</li>
+</ul>
+<h3>1.2 Pourquoi pas Scrum ?</h3>
+<p>Le projet étant porté par un développeur unique, les cérémonies Scrum (sprint planning, daily, retro) n&#39;apportent pas de valeur. Le <strong>Kanban</strong> offre la flexibilité nécessaire avec un suivi visuel simple.</p>
+<h2>2. Outil de gestion : Kanban</h2>
+<p>Le tableau est tenu dans un fichier <code>kanban.md</code> pour porter facilement vers Trello/Notion.</p>
+<h3>2.1 Colonnes</h3>
+<ol>
+<li><strong>Backlog</strong> — toutes les fonctionnalités prévues, par ordre de priorité</li>
+<li><strong>À faire</strong> — fonctionnalités planifiées pour la semaine en cours</li>
+<li><strong>En cours</strong> — fonctionnalité actuellement développée (limite WIP : 1)</li>
+<li><strong>Terminé sur develop</strong> — testé et mergé sur <code>develop</code></li>
+<li><strong>Mergé sur main</strong> — déployé en production</li>
+</ol>
+<h3>2.2 Règles de gestion</h3>
+<ul>
+<li><strong>Limite WIP</strong> : une seule US &quot;En cours&quot; à la fois</li>
+<li>Une US sur <strong>develop</strong> doit être testée localement avant de passer</li>
+<li>Une US sur <strong>main</strong> doit être validée par déploiement réussi sur Railway</li>
+</ul>
+<h2>3. Workflow Git</h2>
+<h3>3.1 Stratégie de branches</h3>
+<pre><code>main           ●────────●────────●────────● (production)
+                \      /        /        /
+develop          ●────●────────●────────● (intégration)
+                  \  / \      / \      /
+feature/us-1      ●●    \    /   \    /
+feature/us-2          ●●●    /     \  /
+feature/us-3                ●●●●    /
+feature/us-4                       ●●●
+</code></pre>
+<h3>3.2 Convention de nommage</h3>
+<ul>
+<li>Branches : <code>feature/us-N-courte-description</code> (ex : <code>feature/us-3-recherche-covoiturages</code>)</li>
+<li>Commits : préfixés par <code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>chore:</code>, <code>refactor:</code>, <code>test:</code></li>
+<li>PR / merge : titre court + description détaillée des changements</li>
+</ul>
+<h3>3.3 Cycle de vie d&#39;une fonctionnalité</h3>
+<ol>
+<li><code>git checkout develop &amp;&amp; git pull</code></li>
+<li><code>git checkout -b feature/us-N-description</code></li>
+<li>Développer + tester en local</li>
+<li><code>git commit -m &quot;feat: ...&quot;</code></li>
+<li><code>git push origin feature/us-N-description</code></li>
+<li>Merge dans <code>develop</code> (ou via Pull Request si revue)</li>
+<li>Tests sur <code>develop</code></li>
+<li>Merge <code>develop</code> dans <code>main</code> après validation</li>
+</ol>
+<h2>4. Découpage des user stories</h2>
+<h3>4.1 Priorisation MoSCoW</h3>
+<table>
+<thead>
+<tr>
+<th>Priorité</th>
+<th>US</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MUST</td>
+<td>1, 2, 3, 5, 7</td>
+<td>Bases : voir, rechercher, créer un compte</td>
+</tr>
+<tr>
+<td>MUST</td>
+<td>6, 9, 10</td>
+<td>Cœur métier : participer, proposer, gérer</td>
+</tr>
+<tr>
+<td>SHOULD</td>
+<td>4, 8, 11</td>
+<td>Filtres, espace utilisateur, démarrage</td>
+</tr>
+<tr>
+<td>SHOULD</td>
+<td>12, 13</td>
+<td>Modération + administration</td>
+</tr>
+<tr>
+<td>COULD</td>
+<td>(futur)</td>
+<td>Messagerie, géoloc, paiement</td>
+</tr>
+</tbody></table>
+<h3>4.2 Estimation et suivi</h3>
+<table>
+<thead>
+<tr>
+<th>US</th>
+<th>Difficulté</th>
+<th>Heures estimées</th>
+<th>Heures réelles</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>★</td>
+<td>2 h</td>
+<td>2 h</td>
+</tr>
+<tr>
+<td>2</td>
+<td>★</td>
+<td>1 h</td>
+<td>1 h</td>
+</tr>
+<tr>
+<td>3</td>
+<td>★★★</td>
+<td>8 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td>4</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>5</td>
+<td>★★</td>
+<td>5 h</td>
+<td>4 h</td>
+</tr>
+<tr>
+<td>6</td>
+<td>★★★</td>
+<td>6 h</td>
+<td>5 h</td>
+</tr>
+<tr>
+<td>7</td>
+<td>★★</td>
+<td>3 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>8</td>
+<td>★★★</td>
+<td>7 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td>9</td>
+<td>★★</td>
+<td>4 h</td>
+<td>4 h</td>
+</tr>
+<tr>
+<td>10</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>11</td>
+<td>★★★</td>
+<td>6 h</td>
+<td>5 h</td>
+</tr>
+<tr>
+<td>12</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>13</td>
+<td>★★★</td>
+<td>8 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>62 h</strong></td>
+<td><strong>51 h</strong></td>
+</tr>
+</tbody></table>
+<p>(Reste : maquettes, doc, déploiement = ~19h, total prévu 70h conforme à la consigne.)</p>
+<h2>5. Risques identifiés et mitigation</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Probabilité</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MongoDB non accessible en local</td>
+<td>Haute</td>
+<td>Moyen</td>
+<td>Fallback gracieux dans les Models (try/catch) + Atlas pour la prod</td>
+</tr>
+<tr>
+<td>Mots de passe non robustes</td>
+<td>Moyenne</td>
+<td>Élevé</td>
+<td>Validation côté serveur + indication côté UI</td>
+</tr>
+<tr>
+<td>Race conditions sur places dispo</td>
+<td>Faible</td>
+<td>Élevé</td>
+<td>Transaction MySQL avec <code>SELECT ... FOR UPDATE</code></td>
+</tr>
+<tr>
+<td>Crédits négatifs</td>
+<td>Faible</td>
+<td>Élevé</td>
+<td>Vérification atomique avant débit dans la transaction</td>
+</tr>
+<tr>
+<td>XSS sur commentaires/avis</td>
+<td>Moyenne</td>
+<td>Élevé</td>
+<td>Échappement systématique via <code>e()</code></td>
+</tr>
+</tbody></table>
+<h2>6. Tests</h2>
+<h3>6.1 Tests réalisés (manuels)</h3>
+<ul>
+<li>✅ Toutes les routes visiteur (HTTP 200)</li>
+<li>✅ Login admin → redirection /admin</li>
+<li>✅ Login utilisateur → /mon-espace</li>
+<li>✅ Création de compte → 20 crédits offerts</li>
+<li>✅ Recherche covoiturage avec filtres</li>
+<li>✅ Page détail covoiturage (avec et sans MongoDB)</li>
+<li>✅ Pages employé et admin (rôles requis)</li>
+<li>✅ API JSON <code>/admin/api/stats</code> (graphiques)</li>
+</ul>
+<h3>6.2 Tests automatisés (à venir)</h3>
+<ul>
+<li>PHPUnit pour les Models (couches d&#39;accès aux données)</li>
+<li>Tests d&#39;intégration des controllers</li>
+</ul>
+<h2>7. Livrables</h2>
+<table>
+<thead>
+<tr>
+<th>Livrable</th>
+<th>Format</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Code source</td>
+<td>Dépôt GitHub public</td>
+<td>✓ (à pousser)</td>
+</tr>
+<tr>
+<td>Application déployée</td>
+<td>URL Railway</td>
+<td>À faire</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>Markdown</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Manuel d&#39;utilisation</td>
+<td>PDF</td>
+<td>✓ (en MD, à exporter)</td>
+</tr>
+<tr>
+<td>Charte graphique</td>
+<td>PDF</td>
+<td>✓ (en MD, à exporter)</td>
+</tr>
+<tr>
+<td>Wireframes / Mockups</td>
+<td>PDF</td>
+<td>À faire (3 desktop + 3 mobile)</td>
+</tr>
+<tr>
+<td>Documentation gestion projet</td>
+<td>PDF</td>
+<td>✓ (ce fichier)</td>
+</tr>
+<tr>
+<td>Documentation technique</td>
+<td>PDF</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Scripts SQL</td>
+<td><code>.sql</code></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Kanban</td>
+<td>Trello/Notion + <code>kanban.md</code></td>
+<td>✓ (MD), à porter</td>
+</tr>
+</tbody></table>
+
+</body>
+</html>
