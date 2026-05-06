@@ -1,0 +1,116 @@
+==============================================================
+                  LIVRABLES POUR LE JURY
+              EcoRide - TP DWWM Studi 2026
+                    Evan Orofino
+==============================================================
+
+1. LIENS PUBLICS
+----------------
+
+* Code source GitHub (PUBLIC) :
+  https://github.com/EvanOROFINO/ecoride
+
+* Application deployee :
+  [A AJOUTER apres deploiement Railway / Render]
+
+* Outil de gestion de projet :
+  Voir le fichier "08_Kanban.pdf" (a porter sur Trello / Notion)
+
+
+2. CONTENU DU DOSSIER LIVRABLES_JURY/
+--------------------------------------
+
+  01_Manuel_utilisation.pdf         Manuel d'utilisation pour le jury
+                                    (parcours visiteur / utilisateur /
+                                     employe / administrateur + identifiants)
+
+  02_Charte_graphique.pdf           Palette de couleurs, typographies,
+                                    composants UI
+
+  03_Maquettes_wireframes.pdf       3 maquettes desktop + 3 maquettes mobile
+                                    des pages principales (accueil,
+                                    covoiturages, detail)
+
+  04_Documentation_technique.pdf    Architecture, securite, choix techno,
+                                    deploiement, environnement
+
+  05_MCD_modele_donnees.pdf         Modele Conceptuel de Donnees (MySQL)
+
+  06_Schema_MongoDB.pdf             Schema des collections NoSQL
+                                    (avis, preferences, configuration, logs)
+
+  07_Gestion_de_projet.pdf          Methodologie Kanban, workflow Git,
+                                    decoupage US, estimations, risques
+
+  08_Kanban.pdf                     Tableau Kanban a porter sur
+                                    Trello / Notion / Jira
+
+
+3. IDENTIFIANTS DE DEMONSTRATION
+---------------------------------
+
+Mot de passe pour TOUS les comptes : Password123!
+
+  Administrateur     admin@ecoride.fr
+  Employe            employe@ecoride.fr
+  Chauffeur          sophie@example.com
+  Chauffeur          lucas@example.com
+  Chauffeur+Pass.    julie@example.com
+  Passager           tom@example.com
+  Passager           emma@example.com
+  Passager           paul@example.com
+
+
+4. POUR LANCER L'APPLICATION EN LOCAL
+--------------------------------------
+
+Prerequis : XAMPP (PHP 8.2, MySQL), Composer, MongoDB Server
+
+1. Cloner le depot :
+   git clone https://github.com/EvanOROFINO/ecoride.git
+   cd ecoride
+
+2. Configurer l'environnement :
+   cp .env.example .env
+   (editer .env avec vos identifiants)
+
+3. Installer les dependances :
+   composer install
+
+4. Importer la base MySQL :
+   mysql -u root < sql/01_schema.sql
+   mysql -u root < sql/02_seed.sql
+
+5. Initialiser MongoDB :
+   php sql/init_mongo.php
+
+6. Lancer le serveur :
+   php -S localhost:8000 -t public
+
+7. Ouvrir http://localhost:8000
+
+
+5. STACK TECHNIQUE
+-------------------
+
+  Front      HTML5, CSS3 custom, JavaScript ES6
+  Icones     Bootstrap Icons (CDN)
+  Graphiques Chart.js (CDN)
+  Back       PHP 8.2 + PDO + autoload PSR-4
+  BDD SQL    MySQL 8 / MariaDB 10
+  BDD NoSQL  MongoDB 8
+  Securite   bcrypt + CSRF + sessions strictes + headers HTTP
+
+
+6. STATISTIQUES DU PROJET
+--------------------------
+
+  49 fichiers PHP
+  3 876 lignes de code PHP
+  10 tables MySQL + 4 collections MongoDB
+  13 user stories (toutes implementees)
+  6 controllers + 8 models + 23 vues
+  33/33 routes testees en HTTP 200
+  6/6 scenarios fonctionnels valides
+
+==============================================================
