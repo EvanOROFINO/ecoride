@@ -45,9 +45,11 @@ EcoRide met en relation conducteurs et passagers pour des trajets partagés, en 
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/<votre-user>/ecoride.git
+git clone https://github.com/EvanOROFINO/ecoride.git
 cd ecoride
 ```
+
+> **Dépôt public** : https://github.com/EvanOROFINO/ecoride
 
 ### 2. Configurer l'environnement
 ```bash
