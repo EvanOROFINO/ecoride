@@ -10,8 +10,9 @@
 * Code source GitHub (PUBLIC) :
   https://github.com/EvanOROFINO/ecoride
 
-* Application deployee :
-  [A AJOUTER apres deploiement Railway / Render]
+* Application deployee (URL PUBLIQUE) :
+  https://orofino.alwaysdata.net
+  (hebergee chez AlwaysData)
 
 * Outil de gestion de projet :
   Voir le fichier "08_Kanban.pdf" (a porter sur Trello / Notion)

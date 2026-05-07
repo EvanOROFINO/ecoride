@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Copie à rendre — EcoRide — Evan OROFINO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+@page { size: A4; margin: 1.5cm 1.8cm; }
+* { box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.55;
+  color: #212121;
+  margin: 0;
+  padding: 0;
+  font-size: 10.5pt;
+}
+
+/* COUVERTURE */
+.cover {
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+  text-align: center;
+  background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);
+  color: white;
+  padding: 4rem 2rem;
+}
+.cover .leaf { font-size: 5rem; margin-bottom: 1rem; }
+.cover h1 { color: white; font-size: 36pt; border: none; margin: 0 0 1rem; font-weight: 700; }
+.cover .subtitle { font-size: 16pt; margin-bottom: 3rem; opacity: 0.95; }
+.cover .meta { background: rgba(255,255,255,0.15); padding: 1.5rem 2rem; border-radius: 12px; font-size: 12pt; }
+.cover .meta strong { color: #FFEB3B; }
+.cover .footer { margin-top: 3rem; font-size: 10pt; opacity: 0.85; }
+
+/* SOMMAIRE */
+.toc { page-break-after: always; padding: 2rem; }
+.toc h2 { color: #2E7D32; font-size: 24pt; border-bottom: 3px solid #2E7D32; padding-bottom: 0.5rem; }
+.toc ol { font-size: 13pt; line-height: 2.2; padding-left: 1.5rem; }
+.toc ol li a { color: #212121; text-decoration: none; }
+.toc ol li a:hover { color: #2E7D32; }
+
+/* SECTION TITLE PAGE */
+.section-cover { page-break-before: always; page-break-after: always; padding: 5rem 2rem; text-align: center; }
+.section-cover .num { font-size: 80pt; color: #66BB6A; font-weight: 700; line-height: 1; }
+.section-cover h2 { color: #2E7D32; font-size: 28pt; margin: 1rem 0; border: none; }
+
+/* CONTENT */
+.section { page-break-before: always; padding: 1rem 0; }
+.section h1 { color: #2E7D32; border-bottom: 3px solid #2E7D32; padding-bottom: .4rem; font-size: 20pt; margin-top: 0; }
+.section h2 { color: #2E7D32; margin-top: 1.6rem; font-size: 14pt; border-bottom: 1px solid #C8E6C9; padding-bottom: .25rem; page-break-after: avoid; }
+.section h3 { color: #424242; margin-top: 1.2rem; font-size: 12pt; page-break-after: avoid; }
+.section h4 { color: #616161; font-size: 11pt; }
+.section p, .section li { line-height: 1.55; }
+.section code { background: #F5F5F5; padding: 1px 5px; border-radius: 3px; font-family: 'Consolas', monospace; font-size: 9pt; color: #C62828; }
+.section pre { background: #F5F5F5; padding: .8rem 1rem; border-radius: 6px; border-left: 4px solid #2E7D32; overflow-x: auto; font-size: 8.5pt; page-break-inside: avoid; }
+.section pre code { background: transparent; padding: 0; color: #212121; }
+.section table { border-collapse: collapse; width: 100%; margin: .8rem 0; font-size: 9.5pt; page-break-inside: avoid; }
+.section th { background: #2E7D32; color: white; padding: .4rem .6rem; text-align: left; font-size: 9.5pt; }
+.section td { padding: .35rem .6rem; border-bottom: 1px solid #E0E0E0; }
+.section tr:nth-child(even) td { background: #FAFAFA; }
+.section blockquote { border-left: 4px solid #66BB6A; background: #E8F5E9; padding: .6rem 1rem; margin: .8rem 0; font-style: italic; }
+.section a { color: #2E7D32; text-decoration: none; }
+.section strong { color: #1B5E20; }
+.section hr { border: none; border-top: 2px solid #E0E0E0; margin: 1.5rem 0; }
+.section ul, .section ol { padding-left: 1.4rem; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="leaf">🌿</div>
+  <h1>EcoRide</h1>
+  <div class="subtitle">Plateforme de covoiturage écologique</div>
+  <div class="meta">
+    <p><strong>Évan OROFINO</strong></p>
+    <p>TP — Développeur Web et Web Mobile</p>
+    <p>Studi · Promotion 2026</p>
+    <p>ECF · CCP1 — Hiver 2025 / Printemps 2026</p>
+  </div>
+  <div class="footer">Dépôt GitHub public : github.com/EvanOROFINO/ecoride · 6 mai 2026</div>
+</div>
+
+<div class="toc">
+  <h2>Sommaire</h2>
+  <ol>
+    <li>1. Manuel d'utilisation</li>
+    <li>2. Charte graphique</li>
+    <li>3. Documentation technique</li>
+    <li>4. Modèle Conceptuel de Données</li>
+    <li>5. Schéma MongoDB</li>
+    <li>6. Gestion de projet</li>
+    <li>7. Kanban</li>
+  </ol>
+</div>
+
+<div class="section-cover">
+  <div class="num">1</div>
+  <h2>Manuel d'utilisation</h2>
+</div>
+<div class="section">
+<h1>Manuel d&#39;utilisation — EcoRide</h1>
+<blockquote>
+<p>Plateforme de covoiturage écologique — Version 1.0</p>
+</blockquote>
+<hr>
+<h2>1. Présentation</h2>
+<p>EcoRide est une plateforme de covoiturage qui privilégie les trajets écologiques (voitures électriques) et facilite le partage entre conducteurs et passagers. Le site est accessible à trois types d&#39;utilisateurs : <strong>visiteurs</strong>, <strong>utilisateurs</strong> (chauffeurs et/ou passagers), <strong>employés</strong> et <strong>administrateurs</strong>.</p>
+<h2>2. Accès à l&#39;application</h2>
+<ul>
+<li><strong>En local</strong> : <a href="http://localhost:8000">http://localhost:8000</a> (serveur PHP)</li>
+<li><strong>En production</strong> : <a href="https://ecoride.up.railway.app">https://ecoride.up.railway.app</a> <em>(à compléter après déploiement)</em></li>
+</ul>
+<h2>3. Comptes de démonstration</h2>
+<p>Mot de passe pour tous les comptes : <strong><code>Password123!</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Email</th>
+<th>Pseudo</th>
+<th>Crédits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Administrateur</td>
+<td><code>admin@ecoride.fr</code></td>
+<td>admin</td>
+<td>9999</td>
+</tr>
+<tr>
+<td>Employé</td>
+<td><code>employe@ecoride.fr</code></td>
+<td>employe1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Chauffeur + passager</td>
+<td><code>sophie@example.com</code></td>
+<td>sophie_b</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Chauffeur</td>
+<td><code>lucas@example.com</code></td>
+<td>lucas_m</td>
+<td>75</td>
+</tr>
+<tr>
+<td>Chauffeur + passager</td>
+<td><code>julie@example.com</code></td>
+<td>julie_r</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>tom@example.com</code></td>
+<td>tom_d</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>emma@example.com</code></td>
+<td>emma_l</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Passager</td>
+<td><code>paul@example.com</code></td>
+<td>paul_g</td>
+<td>25</td>
+</tr>
+</tbody></table>
+<h2>4. Parcours visiteur</h2>
+<h3>4.1 Page d&#39;accueil (US 1)</h3>
+<ol>
+<li>Ouvrir <a href="http://localhost:8000">http://localhost:8000</a></li>
+<li>La page présente l&#39;entreprise, une barre de recherche et un footer (mail + mentions légales)</li>
+</ol>
+<h3>4.2 Recherche d&#39;un covoiturage (US 3-4)</h3>
+<ol>
+<li>Sur la page d&#39;accueil, saisir une ville de départ (<code>Paris</code>), d&#39;arrivée (<code>Lyon</code>) et une date</li>
+<li>Cliquer sur <strong>Rechercher</strong></li>
+<li>La liste des trajets correspondants s&#39;affiche</li>
+<li>Utiliser les filtres dans la sidebar pour affiner :<ul>
+<li><strong>Écologique uniquement</strong> : ne montre que les voitures électriques</li>
+<li><strong>Prix maximum</strong> : en crédits par personne</li>
+<li><strong>Durée maximum</strong> : en minutes</li>
+<li><strong>Note minimale</strong> : filtre par note moyenne du chauffeur</li>
+</ul>
+</li>
+<li>Si aucun résultat, le site propose la <strong>prochaine date disponible</strong></li>
+</ol>
+<h3>4.3 Détail d&#39;un covoiturage (US 5)</h3>
+<ol>
+<li>Cliquer sur <strong>Détails</strong> d&#39;un trajet</li>
+<li>La page affiche : véhicule, marque, énergie, préférences chauffeur, avis validés</li>
+<li>Bouton <strong>Participer</strong> si connecté avec assez de crédits</li>
+</ol>
+<h2>5. Parcours utilisateur (US 6, 7, 8, 9, 10, 11)</h2>
+<h3>5.1 Création de compte (US 7)</h3>
+<ol>
+<li>Cliquer sur <strong>Connexion</strong> &gt; <strong>Créer un compte</strong></li>
+<li>Renseigner un pseudo (3-50 car.), un email valide, un mot de passe sécurisé<ul>
+<li><strong>Min 8 caractères</strong></li>
+<li><strong>1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial</strong></li>
+</ul>
+</li>
+<li>À la création, le compte reçoit <strong>20 crédits offerts</strong></li>
+</ol>
+<h3>5.2 Espace utilisateur (US 8)</h3>
+<p>Une fois connecté, accéder à <strong>Mon espace</strong> :</p>
+<ul>
+<li><strong>Choisir son rôle</strong> : chauffeur, passager, ou les deux (case à cocher)</li>
+<li><strong>Mes véhicules</strong> (chauffeur uniquement) : ajouter une voiture (marque, modèle, immatriculation, énergie, places)</li>
+<li><strong>Mes préférences</strong> : fumeur, animaux, et préférences personnalisées (clé/valeur libre stockées en MongoDB)</li>
+</ul>
+<h3>5.3 Proposer un voyage (US 9)</h3>
+<ol>
+<li><strong>Mon espace &gt; Proposer un voyage</strong></li>
+<li>Renseigner : départ, arrivée, dates, heures, véhicule, places, prix</li>
+<li>Le prix doit être ≥ 3 crédits (2 prélevés par la plateforme)</li>
+</ol>
+<h3>5.4 Participer à un voyage (US 6)</h3>
+<ol>
+<li>Sur la page détail d&#39;un trajet, cliquer <strong>Participer</strong></li>
+<li><strong>Double confirmation</strong> demandée</li>
+<li>Les crédits sont prélevés immédiatement, la place décrémentée</li>
+</ol>
+<h3>5.5 Historique (US 10)</h3>
+<ul>
+<li><strong>Mon espace &gt; Mon historique</strong></li>
+<li>Visualiser tous ses trajets (chauffeur et passager)</li>
+<li><strong>Annuler</strong> un trajet (chauffeur : remboursement passagers + mail) ou (passager : remboursement de ses crédits)</li>
+</ul>
+<h3>5.6 Démarrer / arrêter un trajet (US 11)</h3>
+<ul>
+<li><strong>Chauffeur</strong> : depuis l&#39;historique, bouton <strong>Démarrer</strong> puis <strong>Arrivée à destination</strong></li>
+<li><strong>Passager</strong> : après l&#39;arrivée, bouton <strong>Valider le trajet</strong><ul>
+<li>Indiquer si tout s&#39;est bien passé (oui/non)</li>
+<li>Si oui : noter (1-5 étoiles) + commentaire — l&#39;avis passe en modération employé</li>
+<li>Si non : commentaire requis — un employé contactera le chauffeur</li>
+</ul>
+</li>
+</ul>
+<h2>6. Parcours employé (US 12)</h2>
+<p>Connexion avec <code>employe@ecoride.fr</code>. Accéder à <strong>Espace employé</strong> :</p>
+<h3>6.1 Modération des avis</h3>
+<ul>
+<li><strong>Espace employé &gt; Avis à modérer</strong></li>
+<li>Liste des avis en attente</li>
+<li><strong>Valider</strong> ou <strong>Refuser</strong> chaque avis (le chauffeur ne voit que les avis validés)</li>
+</ul>
+<h3>6.2 Gestion des incidents</h3>
+<ul>
+<li><strong>Espace employé &gt; Incidents</strong></li>
+<li>Liste des trajets signalés problématiques</li>
+<li>Coordonnées chauffeur et passager affichées (mail cliquable)</li>
+<li>Description du problème pour traitement</li>
+</ul>
+<h2>7. Parcours administrateur (US 13)</h2>
+<p>Connexion avec <code>admin@ecoride.fr</code>. Accéder à <strong>Admin</strong> :</p>
+<h3>7.1 Tableau de bord</h3>
+<ul>
+<li>3 KPI : crédits gagnés, utilisateurs, covoiturages</li>
+<li><strong>Graphique</strong> : nombre de covoiturages par jour (30 derniers jours)</li>
+<li><strong>Graphique</strong> : crédits gagnés par jour (30 derniers jours)</li>
+</ul>
+<h3>7.2 Gestion des comptes</h3>
+<ul>
+<li><strong>Admin &gt; Gérer les comptes</strong></li>
+<li>Liste de tous les utilisateurs avec rôles</li>
+<li><strong>Suspendre</strong> ou <strong>Réactiver</strong> un compte (utilisateur ou employé)</li>
+<li><strong>Créer un compte employé</strong> depuis le formulaire dédié</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong> : la création du compte administrateur se fait directement en BDD (script SQL <code>02_seed.sql</code>), pas depuis l&#39;application.</p>
+</blockquote>
+<h2>8. Sécurité</h2>
+<ul>
+<li>Mots de passe hashés en <strong>bcrypt</strong> (jamais stockés en clair)</li>
+<li><strong>Protection CSRF</strong> sur tous les formulaires POST</li>
+<li><strong>Sessions HTTPOnly</strong> + <code>SameSite=Lax</code> + régénération à la connexion</li>
+<li><strong>Requêtes préparées PDO</strong> (protection injection SQL)</li>
+<li><strong>Échappement HTML</strong> (htmlspecialchars) sur tous les affichages utilisateur (anti-XSS)</li>
+<li>En-têtes de sécurité : <code>X-Content-Type-Options</code>, <code>X-Frame-Options</code>, <code>Referrer-Policy</code></li>
+</ul>
+<h2>9. Support</h2>
+<ul>
+<li>Email : <code>contact@ecoride.fr</code></li>
+<li>Page contact : <code>/contact</code></li>
+<li>Mentions légales : <code>/mentions-legales</code></li>
+</ul>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">2</div>
+  <h2>Charte graphique</h2>
+</div>
+<div class="section">
+<h1>Charte graphique — EcoRide</h1>
+<h2>1. Concept</h2>
+<p>L&#39;identité visuelle d&#39;EcoRide s&#39;inspire de l&#39;écologie et du voyage. Les couleurs évoquent la nature (vert pour le végétal, bleu pour le ciel et l&#39;eau, beige pour la terre). Le ton est moderne, accessible et rassurant.</p>
+<h2>2. Palette de couleurs</h2>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Nom</th>
+<th>HEX</th>
+<th>RGB</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Primaire</td>
+<td>Vert forêt</td>
+<td><code>#2E7D32</code></td>
+<td>46, 125, 50</td>
+<td>Boutons principaux, liens actifs, header</td>
+</tr>
+<tr>
+<td>Primaire clair</td>
+<td>Vert tendre</td>
+<td><code>#66BB6A</code></td>
+<td>102, 187, 106</td>
+<td>Hover, accents, badges écologiques</td>
+</tr>
+<tr>
+<td>Secondaire</td>
+<td>Bleu ciel</td>
+<td><code>#0288D1</code></td>
+<td>2, 136, 209</td>
+<td>Liens, info, icônes</td>
+</tr>
+<tr>
+<td>Accent</td>
+<td>Ocre / Sable</td>
+<td><code>#F9A825</code></td>
+<td>249, 168, 37</td>
+<td>CTA secondaires, étoiles de notation</td>
+</tr>
+<tr>
+<td>Fond clair</td>
+<td>Blanc cassé</td>
+<td><code>#F5F7F4</code></td>
+<td>245, 247, 244</td>
+<td>Fond principal des pages</td>
+</tr>
+<tr>
+<td>Fond carte</td>
+<td>Blanc pur</td>
+<td><code>#FFFFFF</code></td>
+<td>255, 255, 255</td>
+<td>Fond des cartes/encarts</td>
+</tr>
+<tr>
+<td>Texte principal</td>
+<td>Anthracite</td>
+<td><code>#212121</code></td>
+<td>33, 33, 33</td>
+<td>Corps de texte</td>
+</tr>
+<tr>
+<td>Texte secondaire</td>
+<td>Gris moyen</td>
+<td><code>#616161</code></td>
+<td>97, 97, 97</td>
+<td>Labels, métadonnées</td>
+</tr>
+<tr>
+<td>Erreur</td>
+<td>Rouge brique</td>
+<td><code>#C62828</code></td>
+<td>198, 40, 40</td>
+<td>Messages d&#39;erreur</td>
+</tr>
+<tr>
+<td>Succès</td>
+<td>Vert validé</td>
+<td><code>#388E3C</code></td>
+<td>56, 142, 60</td>
+<td>Messages de succès</td>
+</tr>
+</tbody></table>
+<h2>3. Typographie</h2>
+<ul>
+<li><strong>Titres (h1-h3)</strong> : <code>Poppins</code>, sans-serif, font-weight 600</li>
+<li><strong>Sous-titres (h4-h6)</strong> : <code>Poppins</code>, sans-serif, font-weight 500</li>
+<li><strong>Corps de texte</strong> : <code>Inter</code>, sans-serif, font-weight 400, taille 16px, line-height 1.6</li>
+<li><strong>Boutons</strong> : <code>Poppins</code>, sans-serif, font-weight 600, taille 14px, lettres en majuscules</li>
+</ul>
+<p>Polices chargées via Google Fonts :</p>
+<pre><code class="language-html">&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+<h2>4. Espacement et grilles</h2>
+<ul>
+<li>Système de grille Bootstrap 5 (12 colonnes)</li>
+<li>Espacement de base : multiples de 8px (8, 16, 24, 32, 48, 64)</li>
+<li>Border-radius standard : 8px (cartes), 4px (champs de formulaire), 24px (boutons pilule)</li>
+</ul>
+<h2>5. Composants</h2>
+<h3>Boutons</h3>
+<ul>
+<li><strong>Primaire</strong> : fond <code>#2E7D32</code>, texte blanc, hover <code>#1B5E20</code></li>
+<li><strong>Secondaire</strong> : fond transparent, bordure <code>#2E7D32</code>, texte <code>#2E7D32</code>, hover fond <code>#E8F5E9</code></li>
+<li><strong>Danger</strong> : fond <code>#C62828</code>, texte blanc</li>
+</ul>
+<h3>Cartes covoiturage</h3>
+<ul>
+<li>Fond blanc, ombre légère <code>0 2px 8px rgba(0,0,0,0.08)</code></li>
+<li>Border-radius 8px, padding 16px</li>
+<li>Badge &quot;Écologique&quot; : fond <code>#66BB6A</code>, texte blanc, icône feuille</li>
+</ul>
+<h3>Formulaires</h3>
+<ul>
+<li>Champs : bordure <code>#BDBDBD</code>, focus bordure <code>#2E7D32</code>, padding 12px 16px</li>
+<li>Labels : couleur <code>#616161</code>, taille 14px, font-weight 500</li>
+</ul>
+<h2>6. Iconographie</h2>
+<ul>
+<li>Bibliothèque : <strong>Bootstrap Icons</strong> (cohérence avec Bootstrap 5)</li>
+<li>Icônes thématiques : feuille (écologique), voiture, étoile (notation), euro (prix), horloge (durée)</li>
+</ul>
+<h2>7. Logo</h2>
+<p>Logo textuel : &quot;EcoRide&quot; en <code>Poppins</code> 700, avec une icône feuille à gauche du nom.</p>
+<ul>
+<li>Couleur principale : <code>#2E7D32</code></li>
+<li>Variante sur fond sombre : blanc avec icône <code>#66BB6A</code></li>
+</ul>
+<h2>8. Accessibilité</h2>
+<ul>
+<li>Contraste minimal AA (WCAG 2.1) sur tous les textes</li>
+<li>Taille de texte minimale : 14px</li>
+<li>Focus visible sur tous les éléments interactifs</li>
+<li><code>alt</code> obligatoire sur toutes les images informatives</li>
+</ul>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">3</div>
+  <h2>Documentation technique</h2>
+</div>
+<div class="section">
+<h1>Documentation technique — EcoRide</h1>
+<blockquote>
+<p>TP Développeur Web et Web Mobile (Studi) — Auteur : Evan Orofino — 2026</p>
+</blockquote>
+<hr>
+<h2>1. Réflexions initiales et choix technologiques</h2>
+<h3>1.1 Contexte</h3>
+<p>EcoRide est une plateforme de covoiturage écologique avec 13 user stories à implémenter, devant gérer :</p>
+<ul>
+<li>Une <strong>base relationnelle</strong> (utilisateurs, voitures, trajets, participations)</li>
+<li>Une <strong>base NoSQL</strong> (avis, préférences, configuration)</li>
+<li>Un <strong>front-end responsive</strong></li>
+<li>Un <strong>back-end sécurisé</strong></li>
+<li>Un <strong>déploiement</strong> documenté</li>
+</ul>
+<h3>1.2 Stack retenue</h3>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Choix</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Front</strong></td>
+<td>HTML5 + CSS3 + JS vanilla</td>
+<td>Pas de framework lourd, contrôle total, performances maximales, simple à défendre à l&#39;oral</td>
+</tr>
+<tr>
+<td><strong>CSS</strong></td>
+<td>Custom + variables CSS</td>
+<td>Charte graphique propre sans dépendance, mobile-first</td>
+</tr>
+<tr>
+<td><strong>Icons</strong></td>
+<td>Bootstrap Icons (CDN)</td>
+<td>Léger, cohérent, large catalogue</td>
+</tr>
+<tr>
+<td><strong>Charts</strong></td>
+<td>Chart.js (CDN)</td>
+<td>Standard de fait, simple à intégrer</td>
+</tr>
+<tr>
+<td><strong>Back</strong></td>
+<td>PHP 8.2 + PDO</td>
+<td>Recommandé Studi, large communauté, déploiement universel</td>
+</tr>
+<tr>
+<td><strong>BDD relationnelle</strong></td>
+<td>MySQL 8 / MariaDB 10</td>
+<td>Mature, performant, bien intégré à PHP</td>
+</tr>
+<tr>
+<td><strong>BDD NoSQL</strong></td>
+<td>MongoDB</td>
+<td>Schéma flexible idéal pour avis et préférences</td>
+</tr>
+<tr>
+<td><strong>Templating</strong></td>
+<td>PHP natif (vues)</td>
+<td>Pas de couche supplémentaire à apprendre/défendre</td>
+</tr>
+<tr>
+<td><strong>Autoloading</strong></td>
+<td>Composer PSR-4</td>
+<td>Standard PHP, classes auto-chargées</td>
+</tr>
+<tr>
+<td><strong>Déploiement</strong></td>
+<td>Railway.app</td>
+<td>Plan gratuit, déploiement Git-push</td>
+</tr>
+</tbody></table>
+<h3>1.3 Alternatives considérées et écartées</h3>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Pourquoi écartée</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Framework Symfony / Laravel</td>
+<td>Surdimensionné pour 13 US, ajoute une couche d&#39;apprentissage masquant les concepts</td>
+</tr>
+<tr>
+<td>Node.js / Express</td>
+<td>Possible, mais PHP est explicitement mentionné dans la consigne et plus aligné avec la formation DWWM</td>
+</tr>
+<tr>
+<td>React / Vue côté front</td>
+<td>Inutile pour un site avec 90 % de contenu statique côté serveur ; SEO et perfs initiales meilleures avec SSR PHP</td>
+</tr>
+<tr>
+<td>Bootstrap CSS</td>
+<td>Custom CSS plus léger et cohérent avec la charte ; on garde Bootstrap <strong>Icons</strong> uniquement</td>
+</tr>
+</tbody></table>
+<h2>2. Configuration de l&#39;environnement</h2>
+<h3>2.1 Prérequis</h3>
+<ul>
+<li>Windows 10/11 (testé) ou Linux/macOS</li>
+<li>XAMPP 8.2 (ou PHP 8.2 + MySQL 8 séparés)</li>
+<li>Composer 2.x</li>
+<li>Git 2.x</li>
+<li>Extension PHP <code>mongodb</code> (driver PECL)</li>
+<li>Compte GitHub (dépôt public)</li>
+<li>Compte MongoDB Atlas (cluster gratuit M0)</li>
+</ul>
+<h3>2.2 Installation pas à pas</h3>
+<pre><code class="language-bash"># 1. Cloner le dépôt
+git clone https://github.com/&lt;votre-user&gt;/ecoride.git
+cd ecoride
+
+# 2. Configurer l&#39;environnement
+cp .env.example .env
+# Éditer .env : DB_*, MONGO_URI, APP_SECRET
+
+# 3. Installer les dépendances PHP
+composer install
+
+# 4. Créer et peupler MySQL
+mysql -u root &lt; sql/01_schema.sql
+mysql -u root &lt; sql/02_seed.sql
+
+# 5. Initialiser MongoDB
+php sql/init_mongo.php
+
+# 6. Lancer le serveur de dev
+php -S localhost:8000 -t public
+</code></pre>
+<h3>2.3 Structure du projet</h3>
+<pre><code>ecoride/
+├── config/                  # Configuration (BDD, Mongo, app)
+│   └── config.php
+├── public/                  # Document root (servi par Apache/PHP)
+│   ├── index.php            # Front controller (toutes les requêtes)
+│   ├── .htaccess            # URL rewriting + headers sécurité
+│   ├── css/app.css
+│   ├── js/app.js
+│   └── images/
+├── src/                     # Code applicatif (autoload PSR-4 → App\)
+│   ├── Core/                # Database, Mongo, Router, Controller, Auth, Security
+│   ├── Controllers/         # Logique HTTP (par domaine fonctionnel)
+│   ├── Models/              # Accès aux données SQL et Mongo
+│   └── Helpers/functions.php
+├── views/                   # Templates PHP (un dossier par domaine)
+│   ├── layouts/main.php
+│   ├── partials/
+│   ├── home/, auth/, covoiturage/, user/, employe/, admin/, errors/
+├── sql/
+│   ├── 01_schema.sql        # DDL MySQL
+│   ├── 02_seed.sql          # Données de test
+│   └── init_mongo.php       # Init Mongo
+├── docs/                    # Documentation (ce fichier inclus)
+├── routes.php               # Définition des routes
+├── composer.json
+├── .env.example
+└── README.md
+</code></pre>
+<h2>3. Architecture logicielle</h2>
+<h3>3.1 Pattern MVC simplifié</h3>
+<ul>
+<li><strong>Front controller</strong> (<code>public/index.php</code>) : point d&#39;entrée unique, démarrage session, dispatching</li>
+<li><strong>Router</strong> (<code>src/Core/Router.php</code>) : map URI → controller@method</li>
+<li><strong>Controllers</strong> : reçoivent les inputs HTTP, valident, appellent les Models, rendent une vue</li>
+<li><strong>Models</strong> : encapsulent les requêtes SQL/Mongo (jamais de SQL dans les controllers)</li>
+<li><strong>Views</strong> : templates PHP avec helpers (<code>e()</code>, <code>csrf_field()</code>, <code>format_date_fr()</code>)</li>
+</ul>
+<h3>3.2 Diagramme d&#39;utilisation (Use Case)</h3>
+<pre><code>                ┌─────────────┐
+   Visiteur ────┤             ├──── US 1, 2, 3, 4, 5, 7
+                │             │
+ Utilisateur ───┤   EcoRide   ├──── US 6, 8, 9, 10, 11
+                │             │
+   Employé ────┤             ├──── US 12
+                │             │
+Administrateur ─┤             ├──── US 13
+                └─────────────┘
+</code></pre>
+<h3>3.3 Diagramme de séquence (US 6 — Participer à un covoiturage)</h3>
+<pre><code>Utilisateur          Browser           Server (PHP)        DB
+    │                  │                    │                │
+    │── clic Particip. ─&gt;                   │                │
+    │                  │── POST /participer &gt;                │
+    │                  │                    │── BEGIN ────-─&gt;│
+    │                  │                    │── SELECT places&gt;│
+    │                  │                    │&lt;──── places ───│
+    │                  │                    │── UPDATE credit&gt;│
+    │                  │                    │── INSERT part. &gt;│
+    │                  │                    │── COMMIT ─────&gt;│
+    │                  │&lt;── 302 redirect ───│                │
+    │&lt;── confirmation ─│                    │                │
+</code></pre>
+<h2>4. Modèle de données</h2>
+<p>Voir <a href="mcd.md"><code>mcd.md</code></a> pour le diagramme complet et <a href="schema_mongodb.md"><code>schema_mongodb.md</code></a> pour les collections NoSQL.</p>
+<h3>4.1 Répartition SQL / NoSQL</h3>
+<table>
+<thead>
+<tr>
+<th>Donnée</th>
+<th>Stockage</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Utilisateurs, rôles, voitures, covoiturages, participations, crédits</td>
+<td><strong>MySQL</strong></td>
+<td>Transactions ACID, intégrité référentielle</td>
+</tr>
+<tr>
+<td>Avis</td>
+<td><strong>MongoDB</strong></td>
+<td>Modération asynchrone, lecture massive</td>
+</tr>
+<tr>
+<td>Préférences chauffeur</td>
+<td><strong>MongoDB</strong></td>
+<td>Schéma extensible (clés libres)</td>
+</tr>
+<tr>
+<td>Configuration globale</td>
+<td><strong>MongoDB</strong></td>
+<td>Lectures fréquentes, écritures rares</td>
+</tr>
+<tr>
+<td>Logs applicatifs</td>
+<td><strong>MongoDB</strong></td>
+<td>Append-only, pas de relations</td>
+</tr>
+</tbody></table>
+<h2>5. Sécurité</h2>
+<h3>5.1 Authentification</h3>
+<ul>
+<li>Mots de passe hachés en <strong>bcrypt</strong> (<code>password_hash</code>/<code>password_verify</code>)</li>
+<li><strong>Validation de robustesse</strong> côté serveur (<code>Security::validatePasswordStrength</code>) :
+min 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre, 1 spécial</li>
+<li><strong>Régénération du <code>session_id</code></strong> à la connexion (<code>session_regenerate_id</code>)</li>
+</ul>
+<h3>5.2 Sessions</h3>
+<pre><code class="language-php">ini_set(&#39;session.cookie_httponly&#39;, &#39;1&#39;);
+ini_set(&#39;session.cookie_samesite&#39;, &#39;Lax&#39;);
+ini_set(&#39;session.use_strict_mode&#39;, &#39;1&#39;);
+</code></pre>
+<h3>5.3 CSRF</h3>
+<ul>
+<li>Token aléatoire 32 octets stocké en session</li>
+<li>Champ caché <code>_csrf</code> dans tous les formulaires POST</li>
+<li>Vérification par <code>hash_equals</code> (timing-safe)</li>
+</ul>
+<h3>5.4 Injection SQL</h3>
+<ul>
+<li>Toutes les requêtes utilisent <strong>PDO en mode prepared statements</strong> avec paramètres nommés</li>
+<li><code>PDO::ATTR_EMULATE_PREPARES = false</code> (vraies requêtes préparées côté serveur)</li>
+</ul>
+<h3>5.5 XSS</h3>
+<ul>
+<li>Échappement systématique via <code>e()</code> (alias <code>htmlspecialchars</code>)</li>
+<li>Header <code>X-XSS-Protection: 1; mode=block</code></li>
+<li>Header <code>X-Content-Type-Options: nosniff</code></li>
+</ul>
+<h3>5.6 Clickjacking</h3>
+<ul>
+<li>Header <code>X-Frame-Options: SAMEORIGIN</code></li>
+</ul>
+<h3>5.7 Mots de passe en BDD</h3>
+<ul>
+<li>Aucun mot de passe en clair, jamais loggé</li>
+<li>Connexion DB protégée par <code>.env</code> exclu du dépôt</li>
+</ul>
+<h3>5.8 Contrôle d&#39;accès</h3>
+<ul>
+<li><code>Auth::requireLogin()</code> : redirige vers <code>/login</code> si non authentifié</li>
+<li><code>Auth::requireRole($roles)</code> : 403 si l&#39;utilisateur n&#39;a pas le rôle requis</li>
+<li>Vérification systématique de propriété (ex : un user ne peut annuler que ses trajets)</li>
+</ul>
+<h2>6. Performance</h2>
+<ul>
+<li>Requêtes SQL avec <strong>JOIN</strong> plutôt que N+1</li>
+<li><strong>Index</strong> sur les colonnes filtrées (lieu_depart, lieu_arrivee, date_depart, statut)</li>
+<li><strong>Cache navigateur</strong> des assets statiques (CSS, JS, images) via <code>.htaccess</code></li>
+<li><strong>Compression gzip</strong> activée pour HTML/CSS/JS</li>
+<li>Connexions BDD en singleton (une seule instance PDO/MongoDB par requête)</li>
+</ul>
+<h2>7. Déploiement</h2>
+<h3>7.1 Cible</h3>
+<p><strong>Railway.app</strong> (alternative gratuite et plus simple que Heroku en 2026).</p>
+<h3>7.2 Étapes</h3>
+<ol>
+<li>Pousser le dépôt sur GitHub (public)</li>
+<li>Sur Railway : <code>New Project &gt; Deploy from GitHub</code></li>
+<li>Ajouter une <strong>variable d&#39;environnement</strong> : <code>DATABASE_URL</code> (Railway génère MySQL)</li>
+<li>Ajouter la <strong>MONGO_URI</strong> depuis MongoDB Atlas</li>
+<li>Configurer le <strong>build command</strong> (Railway détecte PHP automatiquement)</li>
+<li>Le <code>composer install</code> est lancé à chaque push</li>
+</ol>
+<h3>7.3 Fichier <code>Procfile</code> (à créer)</h3>
+<pre><code>web: vendor/bin/heroku-php-apache2 public/
+</code></pre>
+<h3>7.4 Variables d&#39;environnement attendues sur Railway</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>APP_ENV</code></td>
+<td><code>production</code></td>
+</tr>
+<tr>
+<td><code>APP_DEBUG</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>APP_URL</code></td>
+<td>URL Railway générée</td>
+</tr>
+<tr>
+<td><code>APP_SECRET</code></td>
+<td>32 caractères aléatoires</td>
+</tr>
+<tr>
+<td><code>DB_HOST</code>, <code>DB_NAME</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code></td>
+<td>Plugin Railway MySQL</td>
+</tr>
+<tr>
+<td><code>MONGO_URI</code>, <code>MONGO_DB</code></td>
+<td>MongoDB Atlas connection string</td>
+</tr>
+</tbody></table>
+<h2>8. Évolutions possibles</h2>
+<ul>
+<li>Ajout d&#39;un <strong>système de messagerie</strong> entre chauffeur et passager</li>
+<li><strong>API REST</strong> pour application mobile native</li>
+<li><strong>Géolocalisation</strong> pour suggérer des trajets sur la route du chauffeur</li>
+<li><strong>Paiement Stripe</strong> pour acheter des crédits</li>
+<li><strong>Notifications push</strong> (PWA + service worker)</li>
+<li>Intégration d&#39;un <strong>calculateur d&#39;empreinte carbone</strong> par trajet</li>
+</ul>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">4</div>
+  <h2>Modèle Conceptuel de Données</h2>
+</div>
+<div class="section">
+<h1>Modèle Conceptuel de Données (MCD) — EcoRide</h1>
+<h2>Diagramme Mermaid</h2>
+<pre><code class="language-mermaid">erDiagram
+    ROLE ||--o{ UTILISATEUR_ROLE : &quot;donne&quot;
+    UTILISATEUR ||--o{ UTILISATEUR_ROLE : &quot;possede&quot;
+    UTILISATEUR ||--o{ VOITURE : &quot;detient&quot;
+    UTILISATEUR ||--o{ COVOITURAGE : &quot;conduit&quot;
+    UTILISATEUR ||--o{ PARTICIPATION : &quot;participe_a&quot;
+    UTILISATEUR ||--o{ AVIS : &quot;depose&quot;
+    UTILISATEUR ||--o{ AVIS : &quot;recoit&quot;
+    MARQUE ||--o{ VOITURE : &quot;fabrique&quot;
+    VOITURE ||--o{ COVOITURAGE : &quot;utilise&quot;
+    COVOITURAGE ||--o{ PARTICIPATION : &quot;contient&quot;
+    COVOITURAGE ||--o{ AVIS : &quot;concerne&quot;
+    UTILISATEUR ||--o{ PREFERENCE : &quot;definit&quot;
+
+    ROLE {
+        int role_id PK
+        varchar libelle
+    }
+
+    UTILISATEUR {
+        int utilisateur_id PK
+        varchar pseudo UK
+        varchar email UK
+        varchar password_hash
+        varchar nom
+        varchar prenom
+        varchar telephone
+        date date_naissance
+        varchar photo
+        int credit
+        varchar statut
+        datetime date_creation
+    }
+
+    UTILISATEUR_ROLE {
+        int utilisateur_id PK_FK
+        int role_id PK_FK
+    }
+
+    MARQUE {
+        int marque_id PK
+        varchar libelle UK
+    }
+
+    VOITURE {
+        int voiture_id PK
+        int utilisateur_id FK
+        int marque_id FK
+        varchar modele
+        varchar immatriculation UK
+        varchar energie
+        varchar couleur
+        date date_premiere_immatriculation
+        int nb_places
+    }
+
+    COVOITURAGE {
+        int covoiturage_id PK
+        int chauffeur_id FK
+        int voiture_id FK
+        date date_depart
+        time heure_depart
+        date date_arrivee
+        time heure_arrivee
+        varchar lieu_depart
+        varchar lieu_arrivee
+        varchar statut
+        int nb_place
+        decimal prix_personne
+    }
+
+    PARTICIPATION {
+        int participation_id PK
+        int covoiturage_id FK
+        int passager_id FK
+        datetime date_inscription
+        varchar statut_validation
+    }
+
+    AVIS {
+        int avis_id PK
+        int auteur_id FK
+        int chauffeur_id FK
+        int covoiturage_id FK
+        text commentaire
+        int note
+        varchar statut
+        datetime date_creation
+    }
+
+    PREFERENCE {
+        int preference_id PK
+        int utilisateur_id FK
+        varchar cle
+        varchar valeur
+    }
+</code></pre>
+<h2>Description des entités</h2>
+<h3>ROLE</h3>
+<p>Définit les rôles applicatifs : <code>visiteur</code>, <code>utilisateur</code>, <code>chauffeur</code>, <code>passager</code>, <code>employe</code>, <code>administrateur</code>. Un utilisateur peut cumuler plusieurs rôles (ex : chauffeur + passager).</p>
+<h3>UTILISATEUR</h3>
+<p>Compte créé par un visiteur. Champs sensibles :</p>
+<ul>
+<li><code>password_hash</code> : haché avec <code>password_hash()</code> PHP (bcrypt par défaut)</li>
+<li><code>credit</code> : initialisé à 20 lors de la création (US 7)</li>
+<li><code>statut</code> : <code>actif</code> ou <code>suspendu</code> (suspension par admin — US 13)</li>
+</ul>
+<h3>MARQUE</h3>
+<p>Référentiel des marques de véhicules (Renault, Peugeot, Tesla, etc.). Permet de normaliser et d&#39;éviter les doublons.</p>
+<h3>VOITURE</h3>
+<p>Véhicule déclaré par un chauffeur. Le champ <code>energie</code> permet d&#39;identifier les voitures électriques pour le filtre écologique (US 4).</p>
+<h3>COVOITURAGE</h3>
+<p>Trajet proposé par un chauffeur. Statuts possibles :</p>
+<ul>
+<li><code>prevu</code> : créé mais pas démarré</li>
+<li><code>en_cours</code> : démarré (US 11)</li>
+<li><code>termine</code> : arrivé à destination (US 11)</li>
+<li><code>annule</code> : annulé par le chauffeur (US 10)</li>
+</ul>
+<h3>PARTICIPATION</h3>
+<p>Lien entre un passager et un covoiturage (table associative). Le statut <code>statut_validation</code> permet de tracer la validation post-trajet (US 11) : <code>en_attente</code>, <code>valide_ok</code>, <code>valide_probleme</code>.</p>
+<h3>AVIS</h3>
+<p>Avis et note laissés par un passager sur un chauffeur après un trajet. Statut <code>en_attente</code> jusqu&#39;à validation par un employé (US 11/12).</p>
+<h3>PREFERENCE</h3>
+<p>Préférences extensibles du chauffeur (fumeur, animaux, musique, etc.). Modèle clé/valeur pour permettre au chauffeur d&#39;ajouter ses propres préférences (US 8).</p>
+<h2>Choix de répartition SQL / NoSQL</h2>
+<table>
+<thead>
+<tr>
+<th>Donnée</th>
+<th>Stockage</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Utilisateurs, rôles, voitures, covoiturages, participations</td>
+<td><strong>MySQL</strong></td>
+<td>Données fortement relationnelles, cohérence transactionnelle requise (transfert de crédits, place restante)</td>
+</tr>
+<tr>
+<td>Avis</td>
+<td><strong>MongoDB</strong></td>
+<td>Données non critiques, structure flexible (commentaire long, modération asynchrone), affichage agrégé. Possibilité d&#39;enrichir sans migration</td>
+</tr>
+<tr>
+<td>Préférences chauffeur</td>
+<td><strong>MongoDB</strong></td>
+<td>Schéma libre (chauffeur peut ajouter ses propres clés), pas de contrainte d&#39;intégrité forte</td>
+</tr>
+<tr>
+<td>Configuration / paramètres app</td>
+<td><strong>MongoDB</strong></td>
+<td>Lecture fréquente, écriture rare, pas de relations</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Note : la table <code>AVIS</code> MySQL est conservée comme <strong>alternative</strong> au cas où la consigne d&#39;évaluation exigerait l&#39;avis en relationnel. En production réelle, je n&#39;utiliserais qu&#39;un des deux stockages.</p>
+</blockquote>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">5</div>
+  <h2>Schéma MongoDB</h2>
+</div>
+<div class="section">
+<h1>Schéma MongoDB — EcoRide</h1>
+<p>MongoDB stocke les données <strong>non critiques</strong> ou à <strong>schéma flexible</strong> : avis, préférences, configuration et logs. Les données transactionnelles critiques (utilisateurs, covoiturages, crédits) restent en MySQL.</p>
+<h2>Collections</h2>
+<h3><code>avis</code></h3>
+<p>Avis et notes laissés par les passagers sur les chauffeurs après un trajet. La modération étant asynchrone (US 11 et 12), un statut <code>en_attente</code> permet le passage en file d&#39;attente avant validation par un employé.</p>
+<pre><code class="language-js">{
+  _id: ObjectId,
+  auteur_id: Number,        // référence utilisateur SQL
+  auteur_pseudo: String,    // dénormalisation pour éviter une jointure
+  chauffeur_id: Number,
+  covoiturage_id: Number,
+  note: Number,             // 1 à 5
+  commentaire: String,
+  statut: String,           // &quot;en_attente&quot; | &quot;valide&quot; | &quot;refuse&quot;
+  date_creation: ISODate,
+  date_validation: ISODate, // optionnel
+  validateur_id: Number     // optionnel : id employé qui a modéré
+}
+</code></pre>
+<p>Index : <code>{ chauffeur_id: 1, statut: 1 }</code>, <code>{ date_creation: -1 }</code></p>
+<h3><code>preferences</code></h3>
+<p>Préférences libres déclarées par les chauffeurs. Le format clé/valeur permet à chaque chauffeur d&#39;ajouter ses propres préférences sans modifier le schéma.</p>
+<pre><code class="language-js">{
+  _id: ObjectId,
+  utilisateur_id: Number,
+  preferences: {
+    fumeur: &quot;non&quot;,
+    animaux: &quot;oui&quot;,
+    musique: &quot;oui&quot;,
+    discussion: &quot;modérée&quot;,
+    pause_pipi: &quot;toutes les 2h&quot;  // exemple de préférence personnalisée
+  },
+  maj: ISODate
+}
+</code></pre>
+<p>Index : <code>{ utilisateur_id: 1 }</code></p>
+<h3><code>configuration</code></h3>
+<p>Paramètres globaux de l&#39;application. Lus à chaque requête, écrits rarement.</p>
+<pre><code class="language-js">{
+  _id: ObjectId,
+  cle: String,           // unique
+  valeur: Mixed,         // peut être number, string, boolean, object
+  description: String
+}
+</code></pre>
+<p>Index : <code>{ cle: 1 }</code> unique</p>
+<h3><code>logs</code></h3>
+<p>Journal d&#39;événements applicatifs (connexions, actions sensibles, erreurs).</p>
+<pre><code class="language-js">{
+  _id: ObjectId,
+  date: ISODate,
+  niveau: String,        // &quot;info&quot; | &quot;warning&quot; | &quot;error&quot;
+  message: String,
+  context: Object        // contexte arbitraire
+}
+</code></pre>
+<p>Index : <code>{ date: -1 }</code>, <code>{ niveau: 1 }</code></p>
+<h2>Justification du choix MongoDB</h2>
+<table>
+<thead>
+<tr>
+<th>Critère</th>
+<th>Argument</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Flexibilité du schéma</strong></td>
+<td>Les préférences chauffeurs sont <strong>extensibles à l&#39;infini</strong> par l&#39;utilisateur — un schéma SQL fixe serait inadapté</td>
+</tr>
+<tr>
+<td><strong>Performance lecture</strong></td>
+<td>Les avis sont massivement lus (page détail covoiturage), peu écrits — MongoDB est optimisé pour ce profil</td>
+</tr>
+<tr>
+<td><strong>Pas de jointure forte</strong></td>
+<td>Les avis et préférences sont autonomes : pas de besoin de transactions ACID multi-tables</td>
+</tr>
+<tr>
+<td><strong>Audit non bloquant</strong></td>
+<td>Les logs s&#39;écrivent en fire-and-forget, sans impact sur la transaction métier</td>
+</tr>
+</tbody></table>
+<h2>Ce qu&#39;on garde en MySQL et pourquoi</h2>
+<table>
+<thead>
+<tr>
+<th>Donnée</th>
+<th>Pourquoi MySQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Utilisateurs, rôles</td>
+<td>Intégrité référentielle critique</td>
+</tr>
+<tr>
+<td>Covoiturages, participations</td>
+<td>Transactions ACID nécessaires (transfert de crédits + décrément place)</td>
+</tr>
+<tr>
+<td>Voitures, marques</td>
+<td>Référentiel partagé, contraintes FK</td>
+</tr>
+<tr>
+<td>Crédits plateforme</td>
+<td>Trace financière — comptabilité auditable</td>
+</tr>
+</tbody></table>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">6</div>
+  <h2>Gestion de projet</h2>
+</div>
+<div class="section">
+<h1>Documentation gestion de projet — EcoRide</h1>
+<h2>1. Méthodologie</h2>
+<h3>1.1 Approche choisie : <strong>Agile / Kanban</strong></h3>
+<p>Le projet EcoRide a été conduit selon une approche <strong>Kanban</strong> combinée à des principes Agile :</p>
+<ul>
+<li>Découpage du besoin en <strong>User Stories</strong> (US) numérotées</li>
+<li>Priorisation : du visiteur (US 1-7) vers les rôles privilégiés (US 8-13)</li>
+<li><strong>Itérations courtes</strong> : une US codée et testée avant de passer à la suivante</li>
+<li>Branche Git par fonctionnalité, merge dans <code>develop</code> après tests, puis dans <code>main</code> pour livraison</li>
+</ul>
+<h3>1.2 Pourquoi pas Scrum ?</h3>
+<p>Le projet étant porté par un développeur unique, les cérémonies Scrum (sprint planning, daily, retro) n&#39;apportent pas de valeur. Le <strong>Kanban</strong> offre la flexibilité nécessaire avec un suivi visuel simple.</p>
+<h2>2. Outil de gestion : Kanban</h2>
+<p>Le tableau est tenu dans un fichier <code>kanban.md</code> pour porter facilement vers Trello/Notion.</p>
+<h3>2.1 Colonnes</h3>
+<ol>
+<li><strong>Backlog</strong> — toutes les fonctionnalités prévues, par ordre de priorité</li>
+<li><strong>À faire</strong> — fonctionnalités planifiées pour la semaine en cours</li>
+<li><strong>En cours</strong> — fonctionnalité actuellement développée (limite WIP : 1)</li>
+<li><strong>Terminé sur develop</strong> — testé et mergé sur <code>develop</code></li>
+<li><strong>Mergé sur main</strong> — déployé en production</li>
+</ol>
+<h3>2.2 Règles de gestion</h3>
+<ul>
+<li><strong>Limite WIP</strong> : une seule US &quot;En cours&quot; à la fois</li>
+<li>Une US sur <strong>develop</strong> doit être testée localement avant de passer</li>
+<li>Une US sur <strong>main</strong> doit être validée par déploiement réussi sur Railway</li>
+</ul>
+<h2>3. Workflow Git</h2>
+<h3>3.1 Stratégie de branches</h3>
+<pre><code>main           ●────────●────────●────────● (production)
+                \      /        /        /
+develop          ●────●────────●────────● (intégration)
+                  \  / \      / \      /
+feature/us-1      ●●    \    /   \    /
+feature/us-2          ●●●    /     \  /
+feature/us-3                ●●●●    /
+feature/us-4                       ●●●
+</code></pre>
+<h3>3.2 Convention de nommage</h3>
+<ul>
+<li>Branches : <code>feature/us-N-courte-description</code> (ex : <code>feature/us-3-recherche-covoiturages</code>)</li>
+<li>Commits : préfixés par <code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>chore:</code>, <code>refactor:</code>, <code>test:</code></li>
+<li>PR / merge : titre court + description détaillée des changements</li>
+</ul>
+<h3>3.3 Cycle de vie d&#39;une fonctionnalité</h3>
+<ol>
+<li><code>git checkout develop &amp;&amp; git pull</code></li>
+<li><code>git checkout -b feature/us-N-description</code></li>
+<li>Développer + tester en local</li>
+<li><code>git commit -m &quot;feat: ...&quot;</code></li>
+<li><code>git push origin feature/us-N-description</code></li>
+<li>Merge dans <code>develop</code> (ou via Pull Request si revue)</li>
+<li>Tests sur <code>develop</code></li>
+<li>Merge <code>develop</code> dans <code>main</code> après validation</li>
+</ol>
+<h2>4. Découpage des user stories</h2>
+<h3>4.1 Priorisation MoSCoW</h3>
+<table>
+<thead>
+<tr>
+<th>Priorité</th>
+<th>US</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MUST</td>
+<td>1, 2, 3, 5, 7</td>
+<td>Bases : voir, rechercher, créer un compte</td>
+</tr>
+<tr>
+<td>MUST</td>
+<td>6, 9, 10</td>
+<td>Cœur métier : participer, proposer, gérer</td>
+</tr>
+<tr>
+<td>SHOULD</td>
+<td>4, 8, 11</td>
+<td>Filtres, espace utilisateur, démarrage</td>
+</tr>
+<tr>
+<td>SHOULD</td>
+<td>12, 13</td>
+<td>Modération + administration</td>
+</tr>
+<tr>
+<td>COULD</td>
+<td>(futur)</td>
+<td>Messagerie, géoloc, paiement</td>
+</tr>
+</tbody></table>
+<h3>4.2 Estimation et suivi</h3>
+<table>
+<thead>
+<tr>
+<th>US</th>
+<th>Difficulté</th>
+<th>Heures estimées</th>
+<th>Heures réelles</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>★</td>
+<td>2 h</td>
+<td>2 h</td>
+</tr>
+<tr>
+<td>2</td>
+<td>★</td>
+<td>1 h</td>
+<td>1 h</td>
+</tr>
+<tr>
+<td>3</td>
+<td>★★★</td>
+<td>8 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td>4</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>5</td>
+<td>★★</td>
+<td>5 h</td>
+<td>4 h</td>
+</tr>
+<tr>
+<td>6</td>
+<td>★★★</td>
+<td>6 h</td>
+<td>5 h</td>
+</tr>
+<tr>
+<td>7</td>
+<td>★★</td>
+<td>3 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>8</td>
+<td>★★★</td>
+<td>7 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td>9</td>
+<td>★★</td>
+<td>4 h</td>
+<td>4 h</td>
+</tr>
+<tr>
+<td>10</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>11</td>
+<td>★★★</td>
+<td>6 h</td>
+<td>5 h</td>
+</tr>
+<tr>
+<td>12</td>
+<td>★★</td>
+<td>4 h</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>13</td>
+<td>★★★</td>
+<td>8 h</td>
+<td>6 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>62 h</strong></td>
+<td><strong>51 h</strong></td>
+</tr>
+</tbody></table>
+<p>(Reste : maquettes, doc, déploiement = ~19h, total prévu 70h conforme à la consigne.)</p>
+<h2>5. Risques identifiés et mitigation</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Probabilité</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MongoDB non accessible en local</td>
+<td>Haute</td>
+<td>Moyen</td>
+<td>Fallback gracieux dans les Models (try/catch) + Atlas pour la prod</td>
+</tr>
+<tr>
+<td>Mots de passe non robustes</td>
+<td>Moyenne</td>
+<td>Élevé</td>
+<td>Validation côté serveur + indication côté UI</td>
+</tr>
+<tr>
+<td>Race conditions sur places dispo</td>
+<td>Faible</td>
+<td>Élevé</td>
+<td>Transaction MySQL avec <code>SELECT ... FOR UPDATE</code></td>
+</tr>
+<tr>
+<td>Crédits négatifs</td>
+<td>Faible</td>
+<td>Élevé</td>
+<td>Vérification atomique avant débit dans la transaction</td>
+</tr>
+<tr>
+<td>XSS sur commentaires/avis</td>
+<td>Moyenne</td>
+<td>Élevé</td>
+<td>Échappement systématique via <code>e()</code></td>
+</tr>
+</tbody></table>
+<h2>6. Tests</h2>
+<h3>6.1 Tests réalisés (manuels)</h3>
+<ul>
+<li>✅ Toutes les routes visiteur (HTTP 200)</li>
+<li>✅ Login admin → redirection /admin</li>
+<li>✅ Login utilisateur → /mon-espace</li>
+<li>✅ Création de compte → 20 crédits offerts</li>
+<li>✅ Recherche covoiturage avec filtres</li>
+<li>✅ Page détail covoiturage (avec et sans MongoDB)</li>
+<li>✅ Pages employé et admin (rôles requis)</li>
+<li>✅ API JSON <code>/admin/api/stats</code> (graphiques)</li>
+</ul>
+<h3>6.2 Tests automatisés (à venir)</h3>
+<ul>
+<li>PHPUnit pour les Models (couches d&#39;accès aux données)</li>
+<li>Tests d&#39;intégration des controllers</li>
+</ul>
+<h2>7. Livrables</h2>
+<table>
+<thead>
+<tr>
+<th>Livrable</th>
+<th>Format</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Code source</td>
+<td>Dépôt GitHub public</td>
+<td>✓ (à pousser)</td>
+</tr>
+<tr>
+<td>Application déployée</td>
+<td>URL Railway</td>
+<td>À faire</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>Markdown</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Manuel d&#39;utilisation</td>
+<td>PDF</td>
+<td>✓ (en MD, à exporter)</td>
+</tr>
+<tr>
+<td>Charte graphique</td>
+<td>PDF</td>
+<td>✓ (en MD, à exporter)</td>
+</tr>
+<tr>
+<td>Wireframes / Mockups</td>
+<td>PDF</td>
+<td>À faire (3 desktop + 3 mobile)</td>
+</tr>
+<tr>
+<td>Documentation gestion projet</td>
+<td>PDF</td>
+<td>✓ (ce fichier)</td>
+</tr>
+<tr>
+<td>Documentation technique</td>
+<td>PDF</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Scripts SQL</td>
+<td><code>.sql</code></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Kanban</td>
+<td>Trello/Notion + <code>kanban.md</code></td>
+<td>✓ (MD), à porter</td>
+</tr>
+</tbody></table>
+
+</div>
+
+<div class="section-cover">
+  <div class="num">7</div>
+  <h2>Kanban</h2>
+</div>
+<div class="section">
+<h1>Kanban EcoRide</h1>
+<blockquote>
+<p>À copier vers Trello / Notion / Jira pour le rendu final.</p>
+</blockquote>
+<h2>📋 Backlog (Backlog priorisé)</h2>
+<ul>
+<li>[P1] <strong>Setup projet</strong> — initialiser Git, dossiers, charte graphique</li>
+<li>[P1] <strong>MCD + scripts SQL</strong> — schéma relationnel + données de test</li>
+<li>[P1] <strong>Schéma MongoDB</strong> — collections + script init</li>
+<li>[P1] <strong>Architecture PHP</strong> — front controller, router, autoload PSR-4, sécurité</li>
+<li>[P1] <strong>US 1</strong> — Page d&#39;accueil</li>
+<li>[P1] <strong>US 2</strong> — Menu de navigation</li>
+<li>[P1] <strong>US 7</strong> — Création de compte</li>
+<li>[P1] <strong>US 3</strong> — Vue covoiturages avec recherche</li>
+<li>[P1] <strong>US 4</strong> — Filtres covoiturages</li>
+<li>[P1] <strong>US 5</strong> — Vue détaillée covoiturage</li>
+<li>[P1] <strong>US 6</strong> — Participer à un covoiturage</li>
+<li>[P2] <strong>US 8</strong> — Espace utilisateur (rôles, véhicules, préférences)</li>
+<li>[P2] <strong>US 9</strong> — Saisir un voyage</li>
+<li>[P2] <strong>US 10</strong> — Historique des covoiturages</li>
+<li>[P2] <strong>US 11</strong> — Démarrer / arrêter un covoiturage</li>
+<li>[P2] <strong>US 12</strong> — Espace employé</li>
+<li>[P2] <strong>US 13</strong> — Espace administrateur</li>
+<li>[P3] <strong>Maquettes</strong> wireframes/mockups (3 desktop + 3 mobile)</li>
+<li>[P3] <strong>Manuel d&#39;utilisation</strong> PDF</li>
+<li>[P3] <strong>Documentation technique</strong> PDF</li>
+<li>[P3] <strong>Documentation gestion de projet</strong> PDF</li>
+<li>[P3] <strong>Setup MongoDB Atlas</strong></li>
+<li>[P3] <strong>Push GitHub</strong> (dépôt public)</li>
+<li>[P3] <strong>Déploiement Railway</strong></li>
+<li>[P3] <strong>Test global</strong> sur l&#39;application déployée</li>
+</ul>
+<h2>📅 À faire (Sprint en cours)</h2>
+<p><em>(Aucun — toutes les US prioritaires sont terminées.)</em></p>
+<h2>🚧 En cours</h2>
+<p><em>(Aucun)</em></p>
+<h2>✅ Terminé sur <code>develop</code></h2>
+<p><em>(Tout est mergé sur <code>main</code> — voir colonne suivante.)</em></p>
+<h2>🚀 Mergé sur <code>main</code></h2>
+<ul>
+<li>✅ Setup projet</li>
+<li>✅ MCD + scripts SQL</li>
+<li>✅ Schéma MongoDB</li>
+<li>✅ Architecture PHP</li>
+<li>✅ Charte graphique</li>
+<li>✅ US 1 — Page d&#39;accueil</li>
+<li>✅ US 2 — Menu de navigation</li>
+<li>✅ US 3 — Vue covoiturages avec recherche</li>
+<li>✅ US 4 — Filtres covoiturages</li>
+<li>✅ US 5 — Vue détaillée covoiturage</li>
+<li>✅ US 6 — Participer à un covoiturage</li>
+<li>✅ US 7 — Création de compte</li>
+<li>✅ US 8 — Espace utilisateur</li>
+<li>✅ US 9 — Saisir un voyage</li>
+<li>✅ US 10 — Historique</li>
+<li>✅ US 11 — Démarrer / arrêter</li>
+<li>✅ US 12 — Espace employé</li>
+<li>✅ US 13 — Espace administrateur</li>
+</ul>
+<h2>🎯 À porter sur Trello</h2>
+<p>Création du board &quot;EcoRide&quot; sur Trello :</p>
+<ol>
+<li>Créer 5 listes : Backlog, À faire, En cours, Terminé sur develop, Mergé sur main</li>
+<li>Créer une carte par item ci-dessus</li>
+<li>Ajouter des labels couleur par priorité (P1=rouge, P2=orange, P3=vert)</li>
+<li>Ajouter une checklist sur chaque carte avec les sous-tâches techniques</li>
+</ol>
+
+</div>
+
+</body>
+</html>
