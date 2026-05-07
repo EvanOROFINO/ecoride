@@ -94,12 +94,27 @@ let body = `
     <p><strong>Évan OROFINO</strong></p>
     <p>TP — Développeur Web et Web Mobile</p>
     <p>Studi · Promotion 2026</p>
-    <p>ECF · CCP1 — Hiver 2025 / Printemps 2026</p>
+    <p>ECF · CCP1 / CCP2 — Hiver 2025 / Printemps 2026</p>
   </div>
-  <div class="footer">Dépôt GitHub public : github.com/EvanOROFINO/ecoride · ${today}</div>
+  <div class="footer">${today}</div>
 </div>
 
 <div class="toc">
+  <h2>Liens des livrables</h2>
+  <div style="background:#E8F5E9;padding:1.5rem 2rem;border-radius:8px;border-left:5px solid #2E7D32;margin-bottom:1.5rem;font-size:11pt;line-height:2">
+    <p style="margin:.3rem 0"><strong>🌐 Application déployée :</strong><br>
+       <a href="https://orofino.alwaysdata.net">https://orofino.alwaysdata.net</a></p>
+    <p style="margin:.3rem 0"><strong>💻 Code source GitHub PUBLIC :</strong><br>
+       <a href="https://github.com/EvanOROFINO/ecoride">https://github.com/EvanOROFINO/ecoride</a></p>
+    <p style="margin:.3rem 0"><strong>📋 Outil de gestion de projet (Trello) :</strong><br>
+       <a href="https://trello.com/b/cwAXaZBt/ecoride">https://trello.com/b/cwAXaZBt/ecoride</a></p>
+  </div>
+  <div style="background:#FFF8E1;padding:1rem 1.5rem;border-radius:8px;font-size:10pt;margin-bottom:1.5rem">
+    <strong>Identifiants de démonstration</strong> (mot de passe : <code>Password123!</code>)<br>
+    Administrateur : <code>admin@ecoride.fr</code> · Employé : <code>employe@ecoride.fr</code> ·
+    Chauffeur+Pass. : <code>sophie@example.com</code> · Passager : <code>tom@example.com</code>
+  </div>
+
   <h2>Sommaire</h2>
   <ol>
     ${sections.map(s => `<li>${s.title}</li>`).join('\n    ')}
