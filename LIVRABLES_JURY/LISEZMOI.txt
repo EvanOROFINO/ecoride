@@ -14,8 +14,11 @@
   https://orofino.alwaysdata.net
   (hebergee chez AlwaysData)
 
-* Outil de gestion de projet :
-  Voir le fichier "08_Kanban.pdf" (a porter sur Trello / Notion)
+* Outil de gestion de projet (TRELLO PUBLIC) :
+  https://trello.com/b/cwAXaZBt/ecoride
+  (35 cartes - 5 colonnes : Backlog / A faire / En cours /
+   Termine sur develop / Merge sur main)
+  Voir aussi le PDF : 08_Kanban.pdf
 
 
 2. CONTENU DU DOSSIER LIVRABLES_JURY/
