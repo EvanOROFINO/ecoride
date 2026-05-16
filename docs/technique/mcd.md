@@ -1,105 +1,26 @@
 # Modèle Conceptuel de Données (MCD) — EcoRide
 
-## Diagramme Mermaid
+## Diagramme entité-association avec cardinalités
 
-```mermaid
-erDiagram
-    ROLE ||--o{ UTILISATEUR_ROLE : "donne"
-    UTILISATEUR ||--o{ UTILISATEUR_ROLE : "possede"
-    UTILISATEUR ||--o{ VOITURE : "detient"
-    UTILISATEUR ||--o{ COVOITURAGE : "conduit"
-    UTILISATEUR ||--o{ PARTICIPATION : "participe_a"
-    UTILISATEUR ||--o{ AVIS : "depose"
-    UTILISATEUR ||--o{ AVIS : "recoit"
-    MARQUE ||--o{ VOITURE : "fabrique"
-    VOITURE ||--o{ COVOITURAGE : "utilise"
-    COVOITURAGE ||--o{ PARTICIPATION : "contient"
-    COVOITURAGE ||--o{ AVIS : "concerne"
-    UTILISATEUR ||--o{ PREFERENCE : "definit"
+![MCD EcoRide](img/mcd.png)
 
-    ROLE {
-        int role_id PK
-        varchar libelle
-    }
+> Source : [`mcd.mmd`](mcd.mmd) — généré via Mermaid CLI (`npx mmdc -i mcd.mmd -o img/mcd.png`).
 
-    UTILISATEUR {
-        int utilisateur_id PK
-        varchar pseudo UK
-        varchar email UK
-        varchar password_hash
-        varchar nom
-        varchar prenom
-        varchar telephone
-        date date_naissance
-        varchar photo
-        int credit
-        varchar statut
-        datetime date_creation
-    }
+## Cardinalités explicites
 
-    UTILISATEUR_ROLE {
-        int utilisateur_id PK_FK
-        int role_id PK_FK
-    }
-
-    MARQUE {
-        int marque_id PK
-        varchar libelle UK
-    }
-
-    VOITURE {
-        int voiture_id PK
-        int utilisateur_id FK
-        int marque_id FK
-        varchar modele
-        varchar immatriculation UK
-        varchar energie
-        varchar couleur
-        date date_premiere_immatriculation
-        int nb_places
-    }
-
-    COVOITURAGE {
-        int covoiturage_id PK
-        int chauffeur_id FK
-        int voiture_id FK
-        date date_depart
-        time heure_depart
-        date date_arrivee
-        time heure_arrivee
-        varchar lieu_depart
-        varchar lieu_arrivee
-        varchar statut
-        int nb_place
-        decimal prix_personne
-    }
-
-    PARTICIPATION {
-        int participation_id PK
-        int covoiturage_id FK
-        int passager_id FK
-        datetime date_inscription
-        varchar statut_validation
-    }
-
-    AVIS {
-        int avis_id PK
-        int auteur_id FK
-        int chauffeur_id FK
-        int covoiturage_id FK
-        text commentaire
-        int note
-        varchar statut
-        datetime date_creation
-    }
-
-    PREFERENCE {
-        int preference_id PK
-        int utilisateur_id FK
-        varchar cle
-        varchar valeur
-    }
-```
+| Relation | Cardinalité | Description |
+|----------|-------------|-------------|
+| ROLE — UTILISATEUR_ROLE | (1,1) → (0,N) | Un rôle est attribué à 0..N utilisateurs |
+| UTILISATEUR — UTILISATEUR_ROLE | (1,1) → (0,N) | Un utilisateur possède 0..N rôles (table associative N-N) |
+| UTILISATEUR — VOITURE | (1,1) → (0,N) | Un utilisateur détient 0..N voitures |
+| UTILISATEUR — COVOITURAGE | (1,1) → (0,N) | Un utilisateur (chauffeur) conduit 0..N trajets |
+| UTILISATEUR — PARTICIPATION | (1,1) → (0,N) | Un utilisateur participe à 0..N trajets en tant que passager |
+| UTILISATEUR — AVIS | (1,1) → (0,N) | Un utilisateur dépose 0..N avis |
+| UTILISATEUR — PREFERENCE | (1,1) → (0,N) | Un utilisateur définit 0..N préférences |
+| MARQUE — VOITURE | (1,1) → (0,N) | Une marque équipe 0..N voitures |
+| VOITURE — COVOITURAGE | (1,1) → (0,N) | Une voiture utilise 0..N trajets |
+| COVOITURAGE — PARTICIPATION | (1,1) → (0,N) | Un trajet contient 0..N participations |
+| COVOITURAGE — AVIS | (1,1) → (0,N) | Un trajet est concerné par 0..N avis |
 
 ## Description des entités
 
@@ -113,34 +34,33 @@ Compte créé par un visiteur. Champs sensibles :
 - `statut` : `actif` ou `suspendu` (suspension par admin — US 13)
 
 ### MARQUE
-Référentiel des marques de véhicules (Renault, Peugeot, Tesla, etc.). Permet de normaliser et d'éviter les doublons.
+Référentiel des marques de véhicules (Renault, Peugeot, Tesla, etc.) pour normaliser et éviter les doublons.
 
 ### VOITURE
 Véhicule déclaré par un chauffeur. Le champ `energie` permet d'identifier les voitures électriques pour le filtre écologique (US 4).
 
 ### COVOITURAGE
 Trajet proposé par un chauffeur. Statuts possibles :
-- `prevu` : créé mais pas démarré
+- `prevu` : créé, pas démarré
 - `en_cours` : démarré (US 11)
 - `termine` : arrivé à destination (US 11)
 - `annule` : annulé par le chauffeur (US 10)
 
 ### PARTICIPATION
-Lien entre un passager et un covoiturage (table associative). Le statut `statut_validation` permet de tracer la validation post-trajet (US 11) : `en_attente`, `valide_ok`, `valide_probleme`.
+Lien entre un passager et un covoiturage. Le `statut_validation` trace la validation post-trajet (US 11) :
+`en_attente`, `valide_ok`, `valide_probleme`, `annule`.
 
 ### AVIS
-Avis et note laissés par un passager sur un chauffeur après un trajet. Statut `en_attente` jusqu'à validation par un employé (US 11/12).
+Avis et note (1-5) laissés par un passager sur un chauffeur après un trajet. Modération asynchrone par un employé (US 11/12). Statut `en_attente` → `valide` ou `refuse`.
 
 ### PREFERENCE
-Préférences extensibles du chauffeur (fumeur, animaux, musique, etc.). Modèle clé/valeur pour permettre au chauffeur d'ajouter ses propres préférences (US 8).
+Préférences extensibles du chauffeur (fumeur, animaux, musique…). Modèle clé/valeur permettant l'ajout libre de préférences personnalisées (US 8).
 
 ## Choix de répartition SQL / NoSQL
 
 | Donnée | Stockage | Justification |
 |--------|----------|---------------|
-| Utilisateurs, rôles, voitures, covoiturages, participations | **MySQL** | Données fortement relationnelles, cohérence transactionnelle requise (transfert de crédits, place restante) |
-| Avis | **MongoDB** | Données non critiques, structure flexible (commentaire long, modération asynchrone), affichage agrégé. Possibilité d'enrichir sans migration |
-| Préférences chauffeur | **MongoDB** | Schéma libre (chauffeur peut ajouter ses propres clés), pas de contrainte d'intégrité forte |
-| Configuration / paramètres app | **MongoDB** | Lecture fréquente, écriture rare, pas de relations |
-
-> Note : la table `AVIS` MySQL est conservée comme **alternative** au cas où la consigne d'évaluation exigerait l'avis en relationnel. En production réelle, je n'utiliserais qu'un des deux stockages.
+| Utilisateurs, rôles, voitures, covoiturages, participations | **MySQL** | Données fortement relationnelles, transactions ACID (transfert de crédits, place restante) |
+| Avis | **MongoDB** | Structure flexible (commentaire long), modération asynchrone, affichage agrégé. La table SQL est conservée comme alternative |
+| Préférences chauffeur | **MongoDB** | Schéma libre (clés/valeurs ajoutables par l'utilisateur) |
+| Configuration / paramètres | **MongoDB** | Lecture fréquente, écriture rare, pas de relations |

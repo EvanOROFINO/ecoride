@@ -34,5 +34,7 @@
 <?php require __DIR__ . '/../partials/footer.php'; ?>
 
 <script src="<?= asset('js/app.js') ?>"></script>
+<script src="<?= asset('js/search-live.js') ?>" defer></script>
+<script src="<?= asset('js/register-validation.js') ?>" defer></script>
 </body>
 </html>

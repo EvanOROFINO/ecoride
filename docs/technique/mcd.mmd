@@ -1,0 +1,75 @@
+erDiagram
+    ROLE                ||--o{ UTILISATEUR_ROLE : donne
+    UTILISATEUR         ||--o{ UTILISATEUR_ROLE : possede
+    UTILISATEUR         ||--o{ VOITURE          : detient
+    UTILISATEUR         ||--o{ COVOITURAGE      : conduit
+    UTILISATEUR         ||--o{ PARTICIPATION    : participe
+    UTILISATEUR         ||--o{ AVIS             : depose
+    UTILISATEUR         ||--o{ PREFERENCE       : definit
+    MARQUE              ||--o{ VOITURE          : fabrique
+    VOITURE             ||--o{ COVOITURAGE      : utilise
+    COVOITURAGE         ||--o{ PARTICIPATION    : contient
+    COVOITURAGE         ||--o{ AVIS             : concerne
+
+    ROLE {
+        int role_id
+        varchar libelle
+    }
+    UTILISATEUR {
+        int utilisateur_id
+        varchar pseudo
+        varchar email
+        varchar password_hash
+        int credit
+        varchar statut
+    }
+    UTILISATEUR_ROLE {
+        int utilisateur_id
+        int role_id
+    }
+    MARQUE {
+        int marque_id
+        varchar libelle
+    }
+    VOITURE {
+        int voiture_id
+        int utilisateur_id
+        int marque_id
+        varchar modele
+        varchar immatriculation
+        varchar energie
+        int nb_places
+    }
+    COVOITURAGE {
+        int covoiturage_id
+        int chauffeur_id
+        int voiture_id
+        date date_depart
+        time heure_depart
+        varchar lieu_depart
+        varchar lieu_arrivee
+        int nb_place
+        decimal prix_personne
+        varchar statut
+    }
+    PARTICIPATION {
+        int participation_id
+        int covoiturage_id
+        int passager_id
+        varchar statut_validation
+    }
+    AVIS {
+        int avis_id
+        int auteur_id
+        int chauffeur_id
+        int covoiturage_id
+        int note
+        text commentaire
+        varchar statut
+    }
+    PREFERENCE {
+        int preference_id
+        int utilisateur_id
+        varchar cle
+        varchar valeur
+    }

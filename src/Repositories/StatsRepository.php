@@ -4,11 +4,11 @@
  */
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Database;
 
-final class Stats
+final class StatsRepository
 {
     /**
      * Nombre de covoiturages par jour sur les N derniers jours.

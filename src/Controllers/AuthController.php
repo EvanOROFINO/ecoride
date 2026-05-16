@@ -6,10 +6,37 @@ namespace App\Controllers;
 use App\Core\Auth;
 use App\Core\Controller;
 use App\Core\Security;
-use App\Models\User;
+use App\Repositories\UserRepository;
 
 final class AuthController extends Controller
 {
+    /**
+     * Endpoint JSON utilisé par public/js/register-validation.js (via fetch)
+     * pour vérifier en temps réel si un pseudo ou email est disponible.
+     *
+     * Usage : GET /api/auth/check?pseudo=xxx  ou  /api/auth/check?email=xxx
+     */
+    public function apiCheckAvailability(): void
+    {
+        $pseudo = trim((string) ($_GET['pseudo'] ?? ''));
+        $email  = trim((string) ($_GET['email']  ?? ''));
+
+        if ($pseudo !== '') {
+            $exists = UserRepository::findByPseudo($pseudo) !== null;
+            $this->json(['field' => 'pseudo', 'value' => $pseudo, 'available' => !$exists]);
+        }
+
+        if ($email !== '') {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $this->json(['field' => 'email', 'available' => false, 'error' => 'Format invalide'], 400);
+            }
+            $exists = UserRepository::findByEmail($email) !== null;
+            $this->json(['field' => 'email', 'value' => $email, 'available' => !$exists]);
+        }
+
+        $this->json(['error' => 'Paramètre pseudo ou email requis.'], 400);
+    }
+
     public function showLogin(): void
     {
         if (Auth::check()) $this->redirect('/mon-espace');
@@ -29,7 +56,7 @@ final class AuthController extends Controller
             $this->redirect('/login');
         }
 
-        $user = User::findByEmail($email);
+        $user = UserRepository::findByEmail($email);
         if (!$user || !Security::verifyPassword($password, $user['password_hash'])) {
             $this->flash('error', 'Identifiants incorrects.');
             $this->redirect('/login');
@@ -73,10 +100,10 @@ final class AuthController extends Controller
         if ($pwError = Security::validatePasswordStrength($password)) {
             $errors[] = $pwError;
         }
-        if (User::findByEmail($email)) {
+        if (UserRepository::findByEmail($email)) {
             $errors[] = 'Un compte existe déjà avec cet email.';
         }
-        if (User::findByPseudo($pseudo)) {
+        if (UserRepository::findByPseudo($pseudo)) {
             $errors[] = 'Ce pseudo est déjà pris.';
         }
 
@@ -86,8 +113,8 @@ final class AuthController extends Controller
         }
 
         try {
-            $userId = User::create($pseudo, $email, $password);
-            $user   = User::findById($userId);
+            $userId = UserRepository::create($pseudo, $email, $password);
+            $user   = UserRepository::findById($userId);
             Auth::login($user);
             $this->flash('success', 'Compte créé ! Vous bénéficiez de 20 crédits offerts.');
             $this->redirect('/mon-espace');

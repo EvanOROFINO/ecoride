@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Database;
 use App\Core\Security;
 use PDO;
 
-final class User
+final class UserRepository
 {
     public static function findByEmail(string $email): ?array
     {

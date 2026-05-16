@@ -1,0 +1,56 @@
+flowchart LR
+    %% Acteurs
+    V((Visiteur))
+    U((Utilisateur))
+    C((Chauffeur))
+    P((Passager))
+    E((Employé))
+    A((Administrateur))
+
+    %% Cas d'utilisation
+    subgraph EcoRide
+      US1[US1: Page d'accueil]
+      US2[US2: Menu de navigation]
+      US3[US3: Rechercher covoiturages]
+      US4[US4: Filtrer covoiturages]
+      US5[US5: Voir détail covoiturage]
+      US6[US6: Participer à un trajet]
+      US7[US7: Créer un compte]
+      US8[US8: Espace utilisateur]
+      US9[US9: Proposer un voyage]
+      US10[US10: Historique + annulation]
+      US11[US11: Démarrer/arrêter trajet]
+      US12[US12: Modérer avis + incidents]
+      US13[US13: Tableau de bord admin]
+    end
+
+    %% Liens visiteur (non connecté)
+    V --> US1
+    V --> US2
+    V --> US3
+    V --> US4
+    V --> US5
+    V --> US7
+
+    %% Liens utilisateur connecté (tous les visiteurs + plus)
+    U -. herite .-> V
+    U --> US8
+    U --> US10
+
+    %% Spécialisations
+    C -. herite .-> U
+    P -. herite .-> U
+    C --> US9
+    C --> US11
+    P --> US6
+
+    %% Employé
+    E -. herite .-> U
+    E --> US12
+
+    %% Admin
+    A -. herite .-> E
+    A --> US13
+
+    classDef ac fill:#2E7D32,stroke:#1B5E20,color:#fff,stroke-width:2px;
+    class V,U,C,P,E,A ac;

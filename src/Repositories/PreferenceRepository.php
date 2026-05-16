@@ -5,12 +5,12 @@
  */
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Mongo;
 use MongoDB\BSON\UTCDateTime;
 
-final class Preference
+final class PreferenceRepository
 {
     public static function findByUser(int $userId): array
     {

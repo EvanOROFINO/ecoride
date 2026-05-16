@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Database;
 
-final class Marque
+final class MarqueRepository
 {
     public static function all(): array
     {

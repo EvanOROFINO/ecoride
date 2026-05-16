@@ -6,7 +6,7 @@ namespace App\Controllers;
 use App\Core\Auth;
 use App\Core\Controller;
 use App\Core\Database;
-use App\Models\Avis;
+use App\Repositories\AvisRepository;
 
 final class EmployeController extends Controller
 {
@@ -19,7 +19,7 @@ final class EmployeController extends Controller
     {
         $this->ensureEmploye();
 
-        $avisAttente = Avis::findEnAttente();
+        $avisAttente = AvisRepository::findEnAttente();
         $incidents = $this->getIncidents();
 
         $this->view('employe/dashboard', [
@@ -32,7 +32,7 @@ final class EmployeController extends Controller
     public function avisEnAttente(): void
     {
         $this->ensureEmploye();
-        $avis = Avis::findEnAttente();
+        $avis = AvisRepository::findEnAttente();
         $this->view('employe/avis', [
             'pageTitle' => 'Avis à modérer',
             'avis'      => $avis,
@@ -43,7 +43,7 @@ final class EmployeController extends Controller
     {
         $this->verifyCsrf();
         $this->ensureEmploye();
-        Avis::valider($id, Auth::id());
+        AvisRepository::valider($id, Auth::id());
         $this->flash('success', 'Avis validé.');
         $this->redirect('/employe/avis');
     }
@@ -52,7 +52,7 @@ final class EmployeController extends Controller
     {
         $this->verifyCsrf();
         $this->ensureEmploye();
-        Avis::refuser($id, Auth::id());
+        AvisRepository::refuser($id, Auth::id());
         $this->flash('success', 'Avis refusé.');
         $this->redirect('/employe/avis');
     }

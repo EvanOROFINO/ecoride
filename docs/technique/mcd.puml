@@ -1,0 +1,89 @@
+@startuml
+hide methods
+hide stereotypes
+
+entity ROLE {
+  + role_id
+  libelle
+}
+
+entity UTILISATEUR {
+  + utilisateur_id
+  pseudo
+  email
+  password_hash
+  credit
+  statut
+  date_creation
+}
+
+entity UTILISATEUR_ROLE {
+  utilisateur_id
+  role_id
+}
+
+entity MARQUE {
+  + marque_id
+  libelle
+}
+
+entity VOITURE {
+  + voiture_id
+  utilisateur_id
+  marque_id
+  modele
+  immatriculation
+  energie
+  nb_places
+}
+
+entity COVOITURAGE {
+  + covoiturage_id
+  chauffeur_id
+  voiture_id
+  date_depart
+  heure_depart
+  lieu_depart
+  lieu_arrivee
+  nb_place
+  prix_personne
+  statut
+}
+
+entity PARTICIPATION {
+  + participation_id
+  covoiturage_id
+  passager_id
+  statut_validation
+}
+
+entity AVIS {
+  + avis_id
+  auteur_id
+  chauffeur_id
+  covoiturage_id
+  note
+  commentaire
+  statut
+}
+
+entity PREFERENCE {
+  + preference_id
+  utilisateur_id
+  cle
+  valeur
+}
+
+ROLE        "1,1" -- "0,N" UTILISATEUR_ROLE : donne
+UTILISATEUR "1,1" -- "0,N" UTILISATEUR_ROLE : possede
+MARQUE      "1,1" -- "0,N" VOITURE : fabrique
+UTILISATEUR "1,1" -- "0,N" VOITURE : detient
+UTILISATEUR "1,1" -- "0,N" COVOITURAGE : conduit
+VOITURE     "1,1" -- "0,N" COVOITURAGE : utilise
+COVOITURAGE "1,1" -- "0,N" PARTICIPATION : contient
+UTILISATEUR "1,1" -- "0,N" PARTICIPATION : participe
+UTILISATEUR "1,1" -- "0,N" PREFERENCE : definit
+UTILISATEUR "1,1" -- "0,N" AVIS : depose
+COVOITURAGE "1,1" -- "0,N" AVIS : concerne
+
+@enduml

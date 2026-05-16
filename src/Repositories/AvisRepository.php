@@ -5,13 +5,13 @@
  */
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Mongo;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
-final class Avis
+final class AvisRepository
 {
     public static function create(array $data): string
     {

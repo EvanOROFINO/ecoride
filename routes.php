@@ -27,6 +27,10 @@ $router->get('/register',          [AuthController::class, 'showRegister']);
 $router->post('/register',         [AuthController::class, 'register']);
 $router->post('/logout',           [AuthController::class, 'logout']);
 
+// ---------- API JSON (utilisée par les fichiers .js avec fetch()) ----------
+$router->get('/api/auth/check',    [AuthController::class, 'apiCheckAvailability']);
+$router->get('/api/covoiturages',  [CovoiturageController::class, 'apiSearch']);
+
 // ---------- Covoiturages (visiteur + utilisateur) ----------
 $router->get('/covoiturages',      [CovoiturageController::class, 'index']);
 $router->get('/covoiturages/{id}', [CovoiturageController::class, 'show']);

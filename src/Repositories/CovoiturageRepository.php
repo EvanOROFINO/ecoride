@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Repositories;
 
 use App\Core\Database;
 use PDO;
 
-final class Covoiturage
+final class CovoiturageRepository
 {
     /**
      * Recherche des covoiturages par ville de départ, ville d'arrivée et date.

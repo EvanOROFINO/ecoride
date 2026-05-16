@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.env.local
+node_modules
+docs/pdf/*.pdf
+docs/pdf/*.html
+LIVRABLES_JURY
+EcoRide_LIVRABLES_JURY.zip
+EcoRide_LIENS_IMPORTANTS.txt
+tools/__pycache__
+*.log
+.vscode
+.idea

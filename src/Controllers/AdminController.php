@@ -7,8 +7,8 @@ use App\Core\Auth;
 use App\Core\Controller;
 use App\Core\Database;
 use App\Core\Security;
-use App\Models\Stats;
-use App\Models\User;
+use App\Repositories\StatsRepository;
+use App\Repositories\UserRepository;
 use PDO;
 
 final class AdminController extends Controller
@@ -24,9 +24,9 @@ final class AdminController extends Controller
 
         $this->view('admin/dashboard', [
             'pageTitle'         => 'Administration',
-            'totalCredits'      => Stats::totalCredits(),
-            'totalUtilisateurs' => Stats::totalUtilisateurs(),
-            'totalCovoiturages' => Stats::totalCovoiturages(),
+            'totalCredits'      => StatsRepository::totalCredits(),
+            'totalUtilisateurs' => StatsRepository::totalUtilisateurs(),
+            'totalCovoiturages' => StatsRepository::totalCovoiturages(),
         ]);
     }
 
@@ -63,14 +63,14 @@ final class AdminController extends Controller
             $this->redirect('/admin/employes');
         }
 
-        if (User::findByEmail($email)) {
+        if (UserRepository::findByEmail($email)) {
             $this->flash('error', 'Cet email est déjà utilisé.');
             $this->redirect('/admin/employes');
         }
 
         try {
-            $userId = User::create($pseudo, $email, $password);
-            User::setRoles($userId, ['utilisateur', 'employe']);
+            $userId = UserRepository::create($pseudo, $email, $password);
+            UserRepository::setRoles($userId, ['utilisateur', 'employe']);
             $this->flash('success', "Compte employé créé : $pseudo");
         } catch (\Throwable $e) {
             $this->flash('error', 'Erreur : ' . $e->getMessage());
@@ -89,7 +89,7 @@ final class AdminController extends Controller
             $this->redirect('/admin/employes');
         }
 
-        User::setStatut((int) $id, 'suspendu');
+        UserRepository::setStatut((int) $id, 'suspendu');
         $this->flash('success', 'Compte suspendu.');
         $this->redirect('/admin/employes');
     }
@@ -99,7 +99,7 @@ final class AdminController extends Controller
         $this->verifyCsrf();
         $this->ensureAdmin();
 
-        User::setStatut((int) $id, 'actif');
+        UserRepository::setStatut((int) $id, 'actif');
         $this->flash('success', 'Compte réactivé.');
         $this->redirect('/admin/employes');
     }
@@ -113,9 +113,9 @@ final class AdminController extends Controller
         $jours = isset($_GET['jours']) ? max(7, min(365, (int) $_GET['jours'])) : 30;
 
         $this->json([
-            'covoituragesParJour' => Stats::covoituragesParJour($jours),
-            'creditsParJour'      => Stats::creditsParJour($jours),
-            'totalCredits'        => Stats::totalCredits(),
+            'covoituragesParJour' => StatsRepository::covoituragesParJour($jours),
+            'creditsParJour'      => StatsRepository::creditsParJour($jours),
+            'totalCredits'        => StatsRepository::totalCredits(),
             'jours'               => $jours,
         ]);
     }

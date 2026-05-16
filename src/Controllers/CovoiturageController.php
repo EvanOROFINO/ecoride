@@ -5,16 +5,58 @@ namespace App\Controllers;
 
 use App\Core\Auth;
 use App\Core\Controller;
-use App\Core\Database;
-use App\Models\Avis;
-use App\Models\Covoiturage;
-use App\Models\Participation;
-use App\Models\Preference;
-use App\Models\User;
-use App\Models\Voiture;
+use App\Repositories\AvisRepository;
+use App\Repositories\CovoiturageRepository;
+use App\Repositories\ParticipationRepository;
+use App\Repositories\PreferenceRepository;
+use App\Repositories\UserRepository;
+use App\Services\CovoiturageService;
+use DomainException;
 
 final class CovoiturageController extends Controller
 {
+    private CovoiturageService $service;
+
+    public function __construct()
+    {
+        $this->service = new CovoiturageService();
+    }
+
+    /**
+     * Endpoint JSON pour la recherche live (utilisé par public/js/search-live.js via fetch).
+     * Renvoie max 20 résultats au format JSON.
+     */
+    public function apiSearch(): void
+    {
+        $depart  = trim((string) ($_GET['depart']  ?? ''));
+        $arrivee = trim((string) ($_GET['arrivee'] ?? ''));
+        $date    = (string) ($_GET['date']    ?? '');
+        $limit   = max(1, min(20, (int) ($_GET['limit'] ?? 10)));
+
+        if ($depart === '' || $arrivee === '' || $date === '') {
+            $this->json(['error' => 'Paramètres depart, arrivee et date requis.'], 400);
+        }
+
+        $rows = CovoiturageRepository::search($depart, $arrivee, $date);
+        $results = array_slice(array_map(fn($r) => [
+            'id'               => (int) $r['covoiturage_id'],
+            'chauffeur_pseudo' => $r['chauffeur_pseudo'],
+            'heure_depart'    => substr((string) $r['heure_depart'], 0, 5),
+            'heure_arrivee'   => substr((string) $r['heure_arrivee'], 0, 5),
+            'prix_personne'   => (float) $r['prix_personne'],
+            'places_restantes'=> (int) $r['places_restantes'],
+            'energie'         => $r['energie'],
+        ], $rows), 0, $limit);
+
+        $this->json([
+            'total'   => count($rows),
+            'depart'  => $depart,
+            'arrivee' => $arrivee,
+            'date'    => $date,
+            'results' => $results,
+        ]);
+    }
+
     /**
      * US 3 : Liste/recherche des covoiturages.
      * US 4 : Filtres (écologique, prix max, durée max, note min).
@@ -36,7 +78,7 @@ final class CovoiturageController extends Controller
         $hasSearch = $depart !== null && $arrivee !== null && $date !== null && $depart !== '' && $arrivee !== '' && $date !== '';
 
         if ($hasSearch) {
-            $covoiturages = Covoiturage::search($depart, $arrivee, $date);
+            $covoiturages = CovoiturageRepository::search($depart, $arrivee, $date);
 
             // Application des filtres en mémoire (US 4)
             $covoiturages = array_filter($covoiturages, function ($c) use ($ecoOnly, $prixMax, $dureeMax, $noteMin) {
@@ -53,7 +95,7 @@ final class CovoiturageController extends Controller
 
             // Si aucun résultat, chercher la prochaine date dispo
             if (empty($covoiturages)) {
-                $prochaineDate = Covoiturage::findNextAvailableDate($depart, $arrivee, $date);
+                $prochaineDate = CovoiturageRepository::findNextAvailableDate($depart, $arrivee, $date);
             }
         }
 
@@ -79,16 +121,16 @@ final class CovoiturageController extends Controller
      */
     public function show(string $id): void
     {
-        $covoiturage = Covoiturage::findById((int) $id);
+        $covoiturage = CovoiturageRepository::findById((int) $id);
         if (!$covoiturage) {
             http_response_code(404);
             require __DIR__ . '/../../views/errors/404.php';
             return;
         }
 
-        $avis = Avis::findValidesForChauffeur((int) $covoiturage['chauffeur_id']);
-        $preferences = Preference::findByUser((int) $covoiturage['chauffeur_id']);
-        $noteMoyenne = User::getAverageRating((int) $covoiturage['chauffeur_id']);
+        $avis = AvisRepository::findValidesForChauffeur((int) $covoiturage['chauffeur_id']);
+        $preferences = PreferenceRepository::findByUser((int) $covoiturage['chauffeur_id']);
+        $noteMoyenne = UserRepository::getAverageRating((int) $covoiturage['chauffeur_id']);
 
         // L'utilisateur peut-il participer ?
         $canParticipate = false;
@@ -96,7 +138,7 @@ final class CovoiturageController extends Controller
         if (Auth::check()) {
             if ((int) $covoiturage['chauffeur_id'] === Auth::id()) {
                 $reason = 'Vous êtes le chauffeur de ce trajet.';
-            } elseif (Participation::exists((int) $id, Auth::id())) {
+            } elseif (ParticipationRepository::exists((int) $id, Auth::id())) {
                 $reason = 'Vous êtes déjà inscrit à ce trajet.';
             } elseif ((int) $covoiturage['places_restantes'] < 1) {
                 $reason = 'Plus de place disponible.';
@@ -120,64 +162,22 @@ final class CovoiturageController extends Controller
 
     /**
      * US 6 : Participer à un covoiturage.
-     * Transaction : décrément crédit passager + décrément place + création participation + crédit chauffeur en attente.
+     * Logique métier (vérifications + transaction) déléguée à CovoiturageService.
      */
     public function participer(string $id): void
     {
         $this->verifyCsrf();
         Auth::requireLogin();
 
-        $covoiturage = Covoiturage::findById((int) $id);
-        if (!$covoiturage) {
-            $this->flash('error', 'Covoiturage introuvable.');
-            $this->redirect('/covoiturages');
-        }
-
-        if ((int) $covoiturage['chauffeur_id'] === Auth::id()) {
-            $this->flash('error', 'Vous ne pouvez pas participer à votre propre trajet.');
-            $this->redirect("/covoiturages/$id");
-        }
-
-        if (Participation::exists((int) $id, Auth::id())) {
-            $this->flash('error', 'Vous êtes déjà inscrit à ce trajet.');
-            $this->redirect("/covoiturages/$id");
-        }
-
-        if ((int) $covoiturage['places_restantes'] < 1) {
-            $this->flash('error', 'Plus de place disponible.');
-            $this->redirect("/covoiturages/$id");
-        }
-
-        $prix = (int) $covoiturage['prix_personne'];
         $userCredit = (int) (Auth::user()['credit'] ?? 0);
-        if ($userCredit < $prix) {
-            $this->flash('error', 'Crédit insuffisant.');
-            $this->redirect("/covoiturages/$id");
-        }
 
-        // Transaction : on prélève le crédit + on crée la participation
-        $db = Database::getInstance();
-        $db->beginTransaction();
         try {
-            // Vérification atomique des places (évite les race conditions)
-            $stmt = $db->prepare(
-                'SELECT (c.nb_place - (SELECT COUNT(*) FROM participation p WHERE p.covoiturage_id = c.covoiturage_id AND p.statut_validation != "annule")) AS places
-                 FROM covoiturage c WHERE c.covoiturage_id = :id FOR UPDATE'
-            );
-            $stmt->execute(['id' => $id]);
-            $places = (int) $stmt->fetchColumn();
-            if ($places < 1) {
-                throw new \RuntimeException('Plus de place disponible.');
-            }
-
-            User::updateCredit(Auth::id(), -$prix);
-            Participation::create((int) $id, Auth::id());
-
-            $db->commit();
-            \App\Core\Auth::setCredit($userCredit - $prix);
+            $prix = $this->service->participer((int) $id, (int) Auth::id(), $userCredit);
+            Auth::setCredit($userCredit - $prix);
             $this->flash('success', 'Inscription confirmée ! ' . $prix . ' crédits ont été débités.');
+        } catch (DomainException $e) {
+            $this->flash('error', $e->getMessage());
         } catch (\Throwable $e) {
-            $db->rollBack();
             $this->flash('error', 'Erreur : ' . $e->getMessage());
         }
 
