@@ -11,11 +11,13 @@ const outFile = path.join(__dirname, '..', 'docs', 'pdf', '_COPIE_A_RENDRE_compl
 const sections = [
   { file: 'manuel_utilisation.md',                  title: '1. Manuel d\'utilisation' },
   { file: 'charte/charte_graphique.md',             title: '2. Charte graphique' },
-  { file: 'technique/documentation_technique.md',   title: '3. Documentation technique' },
-  { file: 'technique/mcd.md',                       title: '4. Modèle Conceptuel de Données' },
-  { file: 'technique/schema_mongodb.md',            title: '5. Schéma MongoDB' },
-  { file: 'gestion_projet.md',                      title: '6. Gestion de projet' },
-  { file: 'kanban.md',                              title: '7. Kanban' },
+  { file: 'maquettes/maquettes.md',                 title: '3. Maquettes haute fidélité' },
+  { file: 'technique/documentation_technique.md',   title: '4. Documentation technique' },
+  { file: 'technique/mcd.md',                       title: '5. Modèle Conceptuel de Données' },
+  { file: 'technique/use-case.md',                  title: '6. Diagramme cas d\'utilisation' },
+  { file: 'technique/schema_mongodb.md',            title: '7. Schéma MongoDB' },
+  { file: 'gestion_projet.md',                      title: '8. Gestion de projet' },
+  { file: 'kanban.md',                              title: '9. Kanban' },
 ];
 
 const cssTheme = `
@@ -131,7 +133,16 @@ for (const section of sections) {
     continue;
   }
   const md = fs.readFileSync(fullPath, 'utf-8');
-  const html = marked.parse(md);
+  let html = marked.parse(md);
+
+  // Réécrit les chemins d'images relatifs en file:// absolus pour Edge headless
+  const sectionDir = path.dirname(fullPath);
+  html = html.replace(/<img([^>]*?)src="([^"]+)"/g, (match, attrs, src) => {
+    if (/^(https?:|file:|data:)/.test(src)) return match;
+    const absPath = path.resolve(sectionDir, src).replace(/\\/g, '/');
+    return `<img${attrs}src="file:///${absPath}" style="max-width:100%;height:auto;border:1px solid #E0E0E0;border-radius:4px;margin:1rem 0"`;
+  });
+
   body += `
 <div class="section-cover">
   <div class="num">${section.title.split('.')[0]}</div>
