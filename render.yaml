@@ -1,0 +1,31 @@
+# Déploiement Render (offre gratuite) : application PHP + base MariaDB embarquée
+# dans le conteneur (voir docker/entrypoint.sh). Aucune base externe à maintenir.
+services:
+  - type: web
+    name: ecoride
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_NAME
+        value: EcoRide
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        sync: false
+      - key: APP_SECRET
+        generateValue: true
+      - key: DB_HOST
+        value: "127.0.0.1"
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        value: ecoride
+      - key: DB_USER
+        value: ecoride
+      - key: DB_PASSWORD
+        value: demo-base-locale
+      - key: MONGO_DB
+        value: ecoride_nosql

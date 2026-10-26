@@ -26,7 +26,10 @@ final class Mongo
             $mongo = $config['mongo'];
 
             try {
-                $client = new Client($mongo['uri']);
+                $client = new Client($mongo['uri'], [
+                    'serverSelectionTimeoutMS' => 2000,
+                    'connectTimeoutMS'         => 2000,
+                ]);
                 self::$instance = $client->selectDatabase($mongo['db']);
             } catch (Throwable $e) {
                 throw new RuntimeException(

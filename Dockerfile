@@ -5,6 +5,7 @@ FROM php:8.2-apache
 # Dépendances système + extensions PHP
 RUN apt-get update && apt-get install -y \
         libssl-dev libcurl4-openssl-dev pkg-config zip unzip git \
+        mariadb-server mariadb-client \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && docker-php-ext-install pdo_mysql \
@@ -39,4 +40,8 @@ RUN sed -ri -e 's/Listen 80/Listen ${PORT}/' /etc/apache2/ports.conf \
 
 EXPOSE 10000
 
-CMD ["apache2-foreground"]
+# Base MariaDB embarquee (mode demo) puis Apache : voir docker/entrypoint.sh
+RUN sed -i 's/\r$//' /var/www/html/docker/entrypoint.sh \
+    && chmod +x /var/www/html/docker/entrypoint.sh
+
+CMD ["/var/www/html/docker/entrypoint.sh"]
