@@ -6,7 +6,7 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
         libssl-dev libcurl4-openssl-dev pkg-config zip unzip git \
         mariadb-server mariadb-client \
-    && pecl install mongodb \
+    && yes '' | pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && docker-php-ext-install pdo_mysql \
     && a2enmod rewrite headers \
@@ -23,7 +23,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Installation des dépendances (cache layer)
 WORKDIR /var/www/html
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# --ignore-platform-req=ext-mongodb : l'extension est bien installee par pecl (plus haut) mais
+# peut ne pas etre chargee dans le contexte CLI de composer pendant le build ; elle sera presente
+# a l'execution Apache.
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-req=ext-mongodb
 
 # Copie du code applicatif
 COPY . .
