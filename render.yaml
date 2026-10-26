@@ -25,7 +25,5 @@ services:
         value: ecoride
       - key: DB_USER
         value: ecoride
-      - key: DB_PASSWORD
-        value: demo-base-locale
       - key: MONGO_DB
         value: ecoride_nosql

@@ -10,7 +10,7 @@ set -euo pipefail
 
 DB_NAME="${DB_NAME:?DB_NAME manquant}"
 DB_USER="${DB_USER:?DB_USER manquant}"
-DB_PASSWORD="${DB_PASSWORD:?DB_PASSWORD manquant}"
+DB_PASSWORD="${DB_PASSWORD:-}"   # facultatif : base locale au conteneur, non exposée
 APP_DIR=/var/www/html
 
 # Base vierge à chaque démarrage (disque éphémère)
